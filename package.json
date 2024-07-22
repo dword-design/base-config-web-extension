@@ -32,7 +32,7 @@
     "depcheck-bin-name": "^1.0.0",
     "depcheck-package-name": "^3.0.1",
     "depcheck-parser-vue": "^5.0.0",
-    "execa": "^8.0.1",
+    "execa": "^9.0.0",
     "fs-extra": "^11.1.0",
     "load-pkg": "^4.0.0",
     "lodash-es": "^4.17.21",
