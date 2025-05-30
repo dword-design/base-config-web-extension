@@ -1,8 +1,6 @@
 import { execaCommand } from 'execa';
 
-import getManifest from './get-manifest.js';
-
-export default async function (...args) {
+export default function (...args) {
   let options = typeof args[0] === 'string' ? args[1] : args[0];
 
   options = {
@@ -14,16 +12,12 @@ export default async function (...args) {
     ...options,
   };
 
-  return execaCommand('vite build', {
-    env: {
-      ...options.env,
-      MANIFEST: JSON.stringify(
-        await getManifest({ browser: options.browser, cwd: this.cwd }),
-      ),
-      TARGET: options.browser,
+  return execaCommand(
+    `wxt build${options.browser ? ` -b ${options.browser}` : ''}`,
+    {
+      ...(options.log && { stdout: 'inherit' }),
+      cwd: this.cwd,
+      stderr: options.stderr,
     },
-    ...(options.log && { stdout: 'inherit' }),
-    cwd: this.cwd,
-    stderr: options.stderr,
-  });
+  );
 }

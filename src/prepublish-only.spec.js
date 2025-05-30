@@ -14,18 +14,23 @@ test('action with icon', async ({}, testInfo) => {
   const cwd = testInfo.outputPath('');
 
   await outputFiles(cwd, {
-    'config.json': JSON.stringify({
-      action: {},
-      name: 'Foo',
-      permissions: ['storage'],
-    }),
-    'content.js': "console.log('content')",
+    'entrypoints/content.js':
+      "export default defineContentScript({ main: () => console.log('content') })\n",
     'package.json': JSON.stringify({
       description: 'foo bar',
       type: 'module',
       version: '2.0.0',
     }),
-    'public/icon.png': '',
+    'public/icon-128.png': '',
+    'wxt.config.js': dedent`
+      export default defineConfig({
+        manifest: {
+          action: {},
+          name: 'Foo',
+          permissions: ['storage'],
+        },
+      });\n
+    `,
   });
 
   const base = new Base({ name: '../../src/index.js' }, { cwd });

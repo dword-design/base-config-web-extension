@@ -7,6 +7,7 @@ import packageName from 'depcheck-package-name';
 import depcheckParserVue from 'depcheck-parser-vue';
 import { execaCommand } from 'execa';
 import fs from 'fs-extra';
+import lint from './lint.js';
 
 import dev from './dev.js';
 import prepublishOnly from './prepublish-only.js';
@@ -29,10 +30,13 @@ export default function () {
       'popup.js',
       'model',
     ],
+    lint,
     commands: {
       dev: {
-        arguments: '[browser]',
         handler: (...args) => dev.call(this, ...args),
+        options: [
+          { description: 'Specify a browser', name: '-b, --browser <browser>' },
+        ],
       },
       postinstall: async () => {
         const { stdout } = await execaCommand(
@@ -47,10 +51,13 @@ export default function () {
         );
       },
       prepublishOnly: {
-        arguments: '[browser]',
         handler: (...args) => prepublishOnly.call(this, ...args),
+        options: [
+          { description: 'Specify a browser', name: '-b, --browser <browser>' },
+        ],
       },
     },
+
     depcheckConfig: {
       parsers: {
         '**/*.scss': depcheckParserSass,
@@ -94,44 +101,7 @@ export default function () {
       { run: 'zip -r ../firefox.zip .', 'working-directory': 'dist/firefox' },
       { run: 'git archive --output=dist/firefox-sources.zip HEAD' },
     ],
-    prepare: () =>
-      Promise.all([
-        fs.outputFile(
-          pathLib.join(this.cwd, 'vite.config.js'),
-          dedent` // TODO: resolve.alias shouldn't be necessary with existing babel config
-          import vue from '${packageName`@vitejs/plugin-vue`}'
-          import P from 'path'
-          import { defineConfig } from '${packageName`vite`}'
-          import vueBabel from '${packageName`@dword-design/vite-plugin-vue-babel`}'
-          import babel from '${packageName`vite-plugin-babel`}'
-          import eslint from '${packageName`vite-plugin-eslint`}'
-          import webExtension from '${packageName`vite-plugin-web-extension`}'
-          import svgLoader from '${packageName`vite-svg-loader`}'
-
-          export default defineConfig({
-            build: {
-              outDir: P.join('dist', process.env.TARGET),
-            },
-            resolve: {
-              alias: { '@': '.' },
-            },
-            plugins: [
-              vueBabel(),
-              vue(),
-              svgLoader(),
-              eslint({ fix: true }),
-              webExtension({
-                browser: process.env.TARGET,
-                manifest: () => JSON.parse(process.env.MANIFEST),
-                scriptViteConfig: { plugins: [babel(), eslint({ fix: true })] },
-                webExtConfig: { keepProfileChanges: true, chromiumProfile: 'userdata' },
-              }),
-            ],
-          })\n
-        `,
-        ),
-        fs.ensureDir(pathLib.join(this.cwd, 'userdata')),
-      ]),
+    prepare: () => fs.ensureDir(pathLib.join(this.cwd, 'userdata')),
     readmeInstallString: dedent`
       ## Recommended setup
       * Node.js 20.11.1
