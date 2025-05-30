@@ -33,6 +33,74 @@ test('action with icon', async ({}, testInfo) => {
   await base.run('prepublishOnly');
 });
 
+test('alias', async ({}, testInfo) => {
+  const cwd = testInfo.outputPath('');
+
+  await outputFiles(cwd, {
+    'background.js': "console.log('background')",
+    'config.json': JSON.stringify({ name: 'Foo' }),
+    'package.json': JSON.stringify({
+      dependencies: { vue: '*' },
+      description: 'foo bar',
+      type: 'module',
+      version: '2.0.0',
+    }),
+    'components/foo.vue': dedent`
+      <template>
+        <div class="foo">{{ foo }}</div>
+      </template>
+
+      <script setup>
+      import foo from '@/model/foo.js';
+      </script>
+    `,
+    'model/foo.js': 'export default 1',
+    'popup.html': dedent`
+      <div id="app"></div>
+      <script type="module" src="./popup.js"></script>
+    `,
+    'popup.js': dedent`
+      import { createApp } from 'vue';
+
+      import Popup from './popup.vue';
+
+      createApp(Popup).mount('#app');
+    `,
+    'popup.vue': dedent`
+      <template>
+        <foo />
+      </template>
+
+      <script setup>
+      import Foo from './components/foo.vue';
+      </script>
+    `,
+  });
+
+  const base = new Base({ name: '../../src/index.js' }, { cwd });
+  await base.prepare();
+  await base.run('prepublishOnly');
+
+  const context = await chromium.launchPersistentContext('', {
+    args: [
+      `--disable-extensions-except=${pathLib.join(cwd, 'dist', 'chrome')}`,
+      `--load-extension=${pathLib.join(cwd, 'dist', 'chrome')}`,
+    ],
+    channel: 'chromium',
+  });
+
+  try {
+    const page = await context.newPage();
+    let [background] = context.serviceWorkers();
+    if (!background) background = await context.waitForEvent('serviceworker');
+    const extensionId = background.url().split('/')[2];
+    await page.goto(`chrome-extension://${extensionId}/popup.html`);
+    await expect(page.locator('.foo')).toHaveText('1');
+  } finally {
+    await context.close();
+  }
+});
+
 test('babel in js', async ({}, testInfo) => {
   const cwd = testInfo.outputPath('');
 

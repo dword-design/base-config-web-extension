@@ -79,7 +79,7 @@ export default function () {
       Promise.all([
         fs.outputFile(
           pathLib.join(this.cwd, 'vite.config.js'),
-          dedent`
+          dedent` // TODO: resolve.alias shouldn't be necessary with existing babel config
           import vue from '${packageName`@vitejs/plugin-vue`}'
           import P from 'path'
           import { defineConfig } from '${packageName`vite`}'
@@ -92,6 +92,9 @@ export default function () {
           export default defineConfig({
             build: {
               outDir: P.join('dist', process.env.TARGET),
+            },
+            resolve: {
+              alias: { '@': '.' },
             },
             plugins: [
               vueBabel(),
