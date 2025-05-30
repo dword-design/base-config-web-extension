@@ -45,8 +45,8 @@ importers:
         specifier: ^4.17.21
         version: 4.17.21
       publish-browser-extension:
-        specifier: ^2.3.1
-        version: 2.3.1
+        specifier: ^3.0.0
+        version: 3.0.0
       vite:
         specifier: ^6.0.0
         version: 6.3.5(@types/node@22.15.26)(jiti@1.21.7)(sass@1.62.1)(yaml@2.8.0)
@@ -5586,8 +5586,8 @@ packages:
   psl@1.15.0:
     resolution: {integrity: sha512-JZd3gMVBAVQkSs6HdNZo9Sdo0LNcQeMNP3CozBJb3JYC/QUYZTnKxP+f8oWRX4rHP5EurWxqAHTSwUCjlNKa1w==}
 
-  publish-browser-extension@2.3.1:
-    resolution: {integrity: sha512-SWWJvy/UnvIypWaX3hw8H9yW2TztydSH8YXbJF5Ri2aeO1oClXNk5MDZP5g4vgjk0RY+4riv10nIdTE+VglNNQ==}
+  publish-browser-extension@3.0.0:
+    resolution: {integrity: sha512-gwjH8mIepNqID2VqKIxzT6lmtvkcc5tcWYzrGSUdkeUFFFSHhGp9xx01EZ7j8wPq50dDe0XU5VNbHMAqr6wWAA==}
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
 
@@ -13559,7 +13559,7 @@ snapshots:
     dependencies:
       punycode: 2.3.1
 
-  publish-browser-extension@2.3.1:
+  publish-browser-extension@3.0.0:
     dependencies:
       cac: 6.7.14
       cli-highlight: 2.1.11
