@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { expect, test } from '@playwright/test';
 import outputFiles from 'output-files';
 
 import self from './get-manifest.js';
@@ -65,10 +65,7 @@ const tests = {
   },
   package: {
     files: {
-      'package.json': JSON.stringify({
-        description: 'foo',
-        version: '1.0.0',
-      }),
+      'package.json': JSON.stringify({ description: 'foo', version: '1.0.0' }),
     },
     result: { description: 'foo', manifest_version: 3, version: '1.0.0' },
   },
@@ -90,10 +87,7 @@ const tests = {
   'service worker firefox': {
     browser: 'firefox',
     files: { 'background.js': '' },
-    result: {
-      background: { scripts: ['background.js'] },
-      manifest_version: 3,
-    },
+    result: { background: { scripts: ['background.js'] }, manifest_version: 3 },
   },
   web_accessible_resources: {
     browser: 'firefox',
@@ -114,15 +108,18 @@ const tests = {
 };
 
 for (const [name, _testConfig] of Object.entries(tests)) {
-  const testConfig = { files: {}, browser: 'chrome', ..._testConfig };
+  const testConfig = { browser: 'chrome', files: {}, ..._testConfig };
+
   test(name, async ({}, testInfo) => {
     const cwd = testInfo.outputPath('');
     await outputFiles(cwd, testConfig.files);
     const previousEnv = { ...process.env };
     Object.assign(process.env, testConfig.env);
-    
+
     try {
-      expect(await self({ cwd, browser: testConfig.browser })).toEqual(testConfig.result);
+      expect(await self({ browser: testConfig.browser, cwd })).toEqual(
+        testConfig.result,
+      );
     } finally {
       process.env = previousEnv;
     }

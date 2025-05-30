@@ -13,7 +13,7 @@ export default async function (browser = 'chrome', options) {
   return execaCommand('vite', {
     env: {
       ...options.env,
-      MANIFEST: JSON.stringify(await getManifest({ cwd: this.cwd, browser })),
+      MANIFEST: JSON.stringify(await getManifest({ browser, cwd: this.cwd })),
       TARGET: browser,
     },
     ...(options.log && { stdout: 'inherit' }),
