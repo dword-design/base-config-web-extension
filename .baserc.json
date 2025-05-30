@@ -1,4 +1,11 @@
 {
   "name": "@dword-design/node",
-  "testInContainer": true
+  "testInContainer": true,
+  "testRunner": "playwright",
+  "depcheckConfig": {
+    "ignoreMatches": [
+      "playwright",
+      "playwright-chromium"
+    ]
+  }
 }

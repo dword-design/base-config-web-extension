@@ -1,6 +1,6 @@
 {
-  "name": "Foo",
   "action": {},
+  "name": "Foo",
   "permissions": [
     "storage"
   ]
