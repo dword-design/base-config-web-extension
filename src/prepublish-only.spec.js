@@ -242,11 +242,15 @@ test('browser variable', async ({}, testInfo) => {
       let [background] = context.serviceWorkers();
       if (!background) background = await context.waitForEvent('serviceworker');
 
-      await background.evaluate(() => {
-        globalThis.chrome.tabs.query({ active: true }, tabs =>
-          globalThis.chrome.action.onClicked.dispatch(tabs[0]),
-        );
-      });
+      await background.evaluate(
+        () =>
+          new Promise(resolve => {
+            globalThis.chrome.tabs.query({ active: true }, tabs => {
+              globalThis.chrome.action.onClicked.dispatch(tabs[0]);
+              resolve();
+            });
+          }),
+      );
 
       await expect(page.locator('.foo')).toBeAttached();
     } finally {
