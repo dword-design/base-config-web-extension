@@ -242,15 +242,18 @@ test('browser variable', async ({}, testInfo) => {
       let [background] = context.serviceWorkers();
       if (!background) background = await context.waitForEvent('serviceworker');
 
-      await background.evaluate(() => new Promise(resolve => {
-        if (globalThis.chrome.tabs) {
-          resolve();
-        } else {
-          globalThis.chrome.runtime.onInstalled.addListener(() => {
-            resolve();
-          });
-        }
-      }));
+      await background.evaluate(
+        () =>
+          new Promise(resolve => {
+            if (globalThis.chrome.tabs) {
+              resolve();
+            } else {
+              globalThis.chrome.runtime.onInstalled.addListener(() => {
+                resolve();
+              });
+            }
+          }),
+      );
 
       await background.evaluate(() => {
         globalThis.chrome.tabs.query({ active: true }, tabs =>
