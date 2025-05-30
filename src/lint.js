@@ -1,17 +1,15 @@
 import { execaCommand } from 'execa';
 
-export default function (options) {
+export default options => {
   options = {
     env: {},
     log: process.env.NODE_ENV !== 'test',
     stderr: 'inherit',
     ...options,
   };
-
-  return execaCommand(`wxt${options.browser ? ` -b ${options.browser}` : ''}`, {
+  return execaCommand('wxt prepare', {
     ...(options.log && { stdout: 'inherit' }),
     cwd: this.cwd,
-    reject: process.env.NODE_ENV !== 'test',
     stderr: options.stderr,
-  });
-}
+  })
+};
