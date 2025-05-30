@@ -1,0 +1,5 @@
+ignoredBuiltDependencies:
+  - esbuild
+  - spawn-sync
+onlyBuiltDependencies:
+  - playwright-chromium
