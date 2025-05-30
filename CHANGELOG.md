@@ -1,3 +1,10 @@
+## [3.1.10](https://github.com/dword-design/base-config-web-extension/compare/v3.1.9...v3.1.10) (2025-05-30)
+
+
+### Bug Fixes
+
+* add chrome test mode support ([399abe0](https://github.com/dword-design/base-config-web-extension/commit/399abe0706d5948d4243f469786ccec7279fe430))
+
 ## [3.1.9](https://github.com/dword-design/base-config-web-extension/compare/v3.1.8...v3.1.9) (2025-05-30)
 
 
