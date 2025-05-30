@@ -10,8 +10,7 @@ import express from 'express';
 import fs from 'fs-extra';
 import { globby } from 'globby';
 import outputFiles from 'output-files';
-import { test } from '@/fixtures/persistent-context.js';
-import { expect } from '@playwright/test';
+import { expect, test, chromium } from '@playwright/test';
 import { Base } from '@dword-design/base';
 
 test('action with icon', async ({}, testInfo) => {
@@ -56,7 +55,7 @@ test('babel in js', async ({}, testInfo) => {
   );
 });
 
-test('babel in vue', async ({ page, context }, testInfo) => {
+test('babel in vue', async ({ page }, testInfo) => {
   const cwd = testInfo.outputPath('');
   await outputFiles(cwd, {
     'background.js': "console.log('background')",
@@ -91,13 +90,22 @@ test('babel in vue', async ({ page, context }, testInfo) => {
   const base = new Base({ name: '../../src/index.js' }, { cwd });
   await base.prepare();
   await base.run('prepublishOnly');
-  let [background] = context.serviceWorkers();
-  console.log(background)
+  const context = await chromium.launchPersistentContext('', {
+    //channel: 'chromium',
+    headless: false,
+    args: [
+      `--disable-extensions-except=${pathLib.join(cwd, 'dist', 'chrome')}`,
+      `--load-extension=${pathLib.join(cwd, 'dist', 'chrome')}`,
+    ],
+  });
+  const workers = context.serviceWorkers();
+  const [background] = workers;
+  console.log('workers.length', workers.length);
   if (!background) {
-    console.log('waiting')
     background = await context.waitForEvent('serviceworker');
-    console.log('waiting done')
   }
+  const extensionId = background.url().split('/')[2];
+  await new Promise(resolve => setTimeout(resolve, 5_000));
   await page.goto(`chrome-extension://${extensionId}/popup.html`);
   await expect(page.locator('.foo')).toHaveText('2');
 });
@@ -380,7 +388,7 @@ const tests = {
 };
 
 for (const [name, testConfig] of Object.entries(tests)) {
-  test(name, async ({ context, extensionId, worker }, testInfo) => {
+  test(name, async ({ page }, testInfo) => {
     const cwd = testInfo.outputPath('');
     await outputFiles(cwd, test.files);
     await execaCommand('base prepare', { cwd });
@@ -400,7 +408,7 @@ for (const [name, testConfig] of Object.entries(tests)) {
         .get('/', (req, res) => res.send(''))
         .listen(3000);
       try {
-        await test.test({ context, extensionId, worker, cwd });
+        await test.test({ page, cwd });
       } finally {
         await server.close();
       }
