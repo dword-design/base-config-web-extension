@@ -19,8 +19,7 @@
     "lint": "base lint",
     "prepare": "base prepare",
     "prepublishOnly": "base prepublishOnly",
-    "test": "base test",
-    "test:raw": "base test:raw"
+    "test": "base test"
   },
   "dependencies": {
     "@dword-design/depcheck-parser-sass": "^4.0.4",
