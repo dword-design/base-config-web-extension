@@ -38,13 +38,6 @@ test('alias', async ({}, testInfo) => {
 
   await outputFiles(cwd, {
     'background.js': "console.log('background')",
-    'config.json': JSON.stringify({ name: 'Foo' }),
-    'package.json': JSON.stringify({
-      dependencies: { vue: '*' },
-      description: 'foo bar',
-      type: 'module',
-      version: '2.0.0',
-    }),
     'components/foo.vue': dedent`
       <template>
         <div class="foo">{{ foo }}</div>
@@ -54,7 +47,14 @@ test('alias', async ({}, testInfo) => {
       import foo from '@/model/foo.js';
       </script>
     `,
+    'config.json': JSON.stringify({ name: 'Foo' }),
     'model/foo.js': 'export default 1',
+    'package.json': JSON.stringify({
+      dependencies: { vue: '*' },
+      description: 'foo bar',
+      type: 'module',
+      version: '2.0.0',
+    }),
     'popup.html': dedent`
       <div id="app"></div>
       <script type="module" src="./popup.js"></script>
