@@ -1,3 +1,11 @@
+## [3.1.9](https://github.com/dword-design/base-config-web-extension/compare/v3.1.8...v3.1.9) (2025-05-30)
+
+
+### Bug Fixes
+
+* fix aliases ([bc9be2b](https://github.com/dword-design/base-config-web-extension/commit/bc9be2b4b3df76f0d983afff4495aae8c55d26ca))
+* update dependency vite to v6 ([#142](https://github.com/dword-design/base-config-web-extension/issues/142)) ([bceefd2](https://github.com/dword-design/base-config-web-extension/commit/bceefd26bbfa568f6a66c627d224be2ffed1915c))
+
 ## [3.1.8](https://github.com/dword-design/base-config-web-extension/compare/v3.1.7...v3.1.8) (2025-05-30)
 
 
