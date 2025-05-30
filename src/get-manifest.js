@@ -1,12 +1,18 @@
+import pathLib from 'node:path';
+
 import fs from 'fs-extra';
 import loadPkg from 'load-pkg';
 import { pick } from 'lodash-es';
 
-export default async ({ browser }) => {
-  const packageConfig = await loadPkg();
-  const config = await fs.readJson('config.json').catch(() => ({}));
-  const iconExists = await fs.exists('public/icon.png');
-  const popupExists = await fs.exists('popup.html');
+export default async ({ cwd, browser }) => {
+  const packageConfig = await loadPkg(cwd);
+
+  const config = await fs
+    .readJson(pathLib.join(cwd, 'config.json'))
+    .catch(() => ({}));
+
+  const iconExists = await fs.exists(pathLib.join(cwd, 'public', 'icon.png'));
+  const popupExists = await fs.exists(pathLib.join(cwd, 'popup.html'));
   return {
     name: config.name,
     ...pick(packageConfig, ['version', 'description']),
@@ -19,7 +25,8 @@ export default async ({ browser }) => {
         ...(typeof config.action === 'object' && config.action),
       },
     }),
-    ...(((await fs.exists('content.js')) || config.css?.length > 0) && {
+    ...(((await fs.exists(pathLib.join(cwd, 'content.js'))) ||
+      config.css?.length > 0) && {
       content_scripts: [
         {
           js: ['content.js'],
@@ -28,7 +35,7 @@ export default async ({ browser }) => {
         },
       ],
     }),
-    ...((await fs.exists('background.js')) && {
+    ...((await fs.exists(pathLib.join(cwd, 'background.js'))) && {
       background: {
         ...(browser === 'firefox'
           ? { scripts: ['background.js'] }
