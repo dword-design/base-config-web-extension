@@ -5,6 +5,7 @@ import dedent from 'dedent';
 import binName from 'depcheck-bin-name';
 import packageName from 'depcheck-package-name';
 import depcheckParserVue from 'depcheck-parser-vue';
+import { execaCommand } from 'execa';
 import fs from 'fs-extra';
 
 import dev from './dev.js';
@@ -32,6 +33,18 @@ export default function () {
       dev: {
         arguments: '[browser]',
         handler: (...args) => dev.call(this, ...args),
+      },
+      postinstall: async () => {
+        const { stdout } = await execaCommand(
+          `browsers install chrome@116.0.5793.0`,
+        );
+
+        const path = stdout.split(' ').slice(1).join(' ');
+
+        await fs.outputFile(
+          '.webextrc',
+          `${JSON.stringify({ chromiumBinary: path })}\n`,
+        );
       },
       prepublishOnly: {
         arguments: '[browser]',
@@ -62,8 +75,14 @@ export default function () {
         },
       ],
     ],
-    editorIgnore: ['dist', 'userdata', 'vite.config.js'],
-    gitignore: ['/dist', '/userdata', '/vite.config.js'],
+    editorIgnore: ['.webextrc', 'chrome', 'dist', 'userdata', 'vite.config.js'],
+    gitignore: [
+      '/.webextrc',
+      '/chrome',
+      '/dist',
+      '/userdata',
+      '/vite.config.js',
+    ],
     isLockFileFixCommitType: true,
     preDeploySteps: [
       { run: 'pnpm prepublishOnly' },
