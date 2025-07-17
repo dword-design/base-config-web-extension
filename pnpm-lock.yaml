@@ -27,8 +27,8 @@ importers:
         specifier: ^1.0.1
         version: 1.0.1
       depcheck-package-name:
-        specifier: ^3.0.1
-        version: 3.0.1
+        specifier: ^4.0.0
+        version: 4.0.0
       depcheck-parser-vue:
         specifier: ^5.0.0
         version: 5.0.0
@@ -820,6 +820,7 @@ packages:
   '@dword-design/babel-config@4.2.2':
     resolution: {integrity: sha512-16+XPCiidsMvFNtztxQ11QSnog+jLAYlenL8CD/ls9SqbYAc0ndoHBWaO9aZc5wn9CHzyZ/R4S13yQJg6AaVuw==}
     engines: {node: '>=18'}
+    deprecated: Using TypeScript now
 
   '@dword-design/babel-plugin-wildcard@0.0.3':
     resolution: {integrity: sha512-J+OooxCchKZbU9cKvlWQFc9tDc0NipACWGadLE2JKRBJJcL4e/+3yFwrwestjn9yBk+JEq1FEzRSXi38FXWrag==}
@@ -881,23 +882,24 @@ packages:
   '@dword-design/eslint-plugin-unicorn@0.0.1':
     resolution: {integrity: sha512-YAEdFSYh1208t4BSHgL5MtaNnkUgCNp9pPKISDJw1xISLvcK8w3X1EAxUnkM3ChnL/xphPYRubzucNi/p4aW3A==}
     engines: {node: ^18.20.0 || ^20.10.0 || >=21.0.0}
+    deprecated: Issues solved
     peerDependencies:
       eslint: '>=9.26.0'
 
   '@dword-design/functions@4.1.7':
     resolution: {integrity: sha512-kc7bzBKZasf0icxKldgB7dkpd1mcEQkPz8c0BP5Wuxy63bMYs+kNWbywFT+xNBWDT6N9cdTczHwBuVBgc8ZU0A==}
     engines: {node: '>=14'}
-    deprecated: Use lodash and dedent
+    deprecated: Use lodash and endent
 
   '@dword-design/functions@5.0.27':
     resolution: {integrity: sha512-16A97RKtn21xLWI7Y7VhFz4WCWui+TLit/J5/l77BDpWmPi2LzgjQzDbafDDw7OUeY6GEAi/M4jdbuQhsIbSEg==}
     engines: {node: '>=14'}
-    deprecated: Use lodash and dedent
+    deprecated: Use lodash and endent
 
   '@dword-design/functions@6.0.2':
     resolution: {integrity: sha512-bX8MqBkzGaYEIlGAdc3hLiHO3Gia1L/sguymbQkp07yB611ZZW4Y0lTGJxWAemJEggEVM5jr1IL4vvAUmQX8VA==}
     engines: {node: '>=18'}
-    deprecated: Use lodash and dedent
+    deprecated: Use lodash and endent
 
   '@dword-design/jiti-babel-transform@2.0.0':
     resolution: {integrity: sha512-sT4TsdN6Id9k0ceZZjznmdIqdk94ZPHI21Pv0v6DeXqWRDxW0BoDVAqTbMjStSPV6n5i4AYRpwLBFN3hxYL2Lw==}
@@ -926,10 +928,12 @@ packages:
   '@dword-design/pretest@1.0.15':
     resolution: {integrity: sha512-xN+aEzDzAZeBOboMqnqFXkAOSP02nuSMvA1sMbOpA2BZw7qUCKPLnKi94S+en+upXWXgF/fBpLgEmRR9TeDsCQ==}
     engines: {node: '>=14'}
+    deprecated: Migrated to Playwright
 
   '@dword-design/setup-test@1.0.2':
     resolution: {integrity: sha512-W861E4cbZmUaYri3mhZNfpo2Yxc1hHPP0v5iDZGE+h9EHplY+8tzWaTNHIF67DmrcDLP79zxd/lkJX0xZs0l8Q==}
     engines: {node: '>=14'}
+    deprecated: Migrated to Playwright
 
   '@dword-design/suppress-babel-register-esm-warning@1.1.10':
     resolution: {integrity: sha512-VkXvIeTTutLLGr05RQEcuAs+ePlJa3yN2xuUuA3OtfXywdKlxA9r5xMFzGnHVc/y8T/95Z2eOEBpCn2QkChokg==}
@@ -2671,6 +2675,10 @@ packages:
   depcheck-package-name@3.0.1:
     resolution: {integrity: sha512-7rR+VPs0wZCOgAyNe4klyXc+93cXl62pQ4akwHcnQQypdqDC18cy3LNLXmgu8geb3on8pgcxOhfbQ66+yLaNoQ==}
     engines: {node: '>=14'}
+
+  depcheck-package-name@4.0.0:
+    resolution: {integrity: sha512-/TtBVQmTZB0fOew8FElr9xsyff+2QTRUW+6lV5HPAKh/QFeoJeBlm7Bon+iIW4v/drfqAdoe91s6KCkQhOa3yw==}
+    engines: {node: '>=20'}
 
   depcheck-parser-babel@3.0.57:
     resolution: {integrity: sha512-a4DDyqQiMrtqutvqwji9B2/eNmRV0aLY60jU/bmyyJYM9A61FgLI1t6d/Rpri38DJkMT7OicpGvCbWRDTvec0A==}
@@ -10177,6 +10185,10 @@ snapshots:
   depcheck-detector-package-name@3.0.4: {}
 
   depcheck-package-name@3.0.1:
+    dependencies:
+      tagged-template-noop: 2.1.1
+
+  depcheck-package-name@4.0.0:
     dependencies:
       tagged-template-noop: 2.1.1
 
