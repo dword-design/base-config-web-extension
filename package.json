@@ -25,7 +25,7 @@
     "@dword-design/depcheck-parser-sass": "^4.0.4",
     "@dword-design/vite-plugin-vue-babel": "^1.0.2",
     "@semantic-release/exec": "^6.0.3",
-    "@vitejs/plugin-vue": "^5.2.4",
+    "@vitejs/plugin-vue": "^6.0.0",
     "dedent": "^1.6.0",
     "depcheck-bin-name": "^1.0.1",
     "depcheck-package-name": "^3.0.1",
