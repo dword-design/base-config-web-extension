@@ -2,19 +2,24 @@ import pathLib from 'node:path';
 
 import { Base } from '@dword-design/base';
 import { chromium, expect, test } from '@playwright/test';
-import dedent from 'dedent';
 import packageName from 'depcheck-package-name';
+import endent from 'endent';
 import express from 'express';
 import fs from 'fs-extra';
 import getPort from 'get-port';
 import { globby } from 'globby';
 import outputFiles from 'output-files';
 
+interface EventWithDispatch
+  extends chrome.events.Event<(tab: chrome.tabs.Tab) => void> {
+  dispatch: (tab: chrome.tabs.Tab) => void;
+}
+
 test('action with icon', async ({}, testInfo) => {
   const cwd = testInfo.outputPath('');
 
   await outputFiles(cwd, {
-    'entrypoints/content.js':
+    'entrypoints/content.ts':
       "export default defineContentScript({ main: () => console.log('content') })\n",
     'package.json': JSON.stringify({
       description: 'foo bar',
@@ -22,7 +27,7 @@ test('action with icon', async ({}, testInfo) => {
       version: '2.0.0',
     }),
     'public/icon-128.png': '',
-    'wxt.config.js': dedent`
+    'wxt.config.ts': endent`
       export default defineConfig({
         manifest: {
           action: {},
@@ -33,7 +38,7 @@ test('action with icon', async ({}, testInfo) => {
     `,
   });
 
-  const base = new Base({ name: '../../src/index.js' }, { cwd });
+  const base = new Base('../../src', { cwd });
   await base.prepare();
   await base.run('prepublishOnly');
 });
@@ -42,36 +47,36 @@ test('alias', async ({}, testInfo) => {
   const cwd = testInfo.outputPath('');
 
   await outputFiles(cwd, {
-    'background.js': "console.log('background')",
-    'components/foo.vue': dedent`
+    'background.ts': "console.log('background')",
+    'components/foo.vue': endent`
       <template>
         <div class="foo">{{ foo }}</div>
       </template>
 
       <script setup>
-      import foo from '@/model/foo.js';
+      import foo from '@/model/foo';
       </script>
     `,
     'config.json': JSON.stringify({ name: 'Foo' }),
-    'model/foo.js': 'export default 1',
+    'model/foo.ts': 'export default 1;',
     'package.json': JSON.stringify({
       dependencies: { vue: '*' },
       description: 'foo bar',
       type: 'module',
       version: '2.0.0',
     }),
-    'popup.html': dedent`
+    'popup.html': endent`
       <div id="app"></div>
-      <script type="module" src="./popup.js"></script>
+      <script type="module" src="./popup.ts"></script>
     `,
-    'popup.js': dedent`
+    'popup.ts': endent`
       import { createApp } from 'vue';
 
       import Popup from './popup.vue';
 
       createApp(Popup).mount('#app');
     `,
-    'popup.vue': dedent`
+    'popup.vue': endent`
       <template>
         <foo />
       </template>
@@ -82,7 +87,7 @@ test('alias', async ({}, testInfo) => {
     `,
   });
 
-  const base = new Base({ name: '../../src/index.js' }, { cwd });
+  const base = new Base('../../src', { cwd });
   await base.prepare();
   await base.run('prepublishOnly');
 
@@ -106,113 +111,30 @@ test('alias', async ({}, testInfo) => {
   }
 });
 
-test('babel in js', async ({}, testInfo) => {
-  const cwd = testInfo.outputPath('');
-
-  await outputFiles(cwd, {
-    'config.json': JSON.stringify({ name: 'Foo' }),
-    'content.js': 'console.log(1 |> x => x * 2);',
-    'package.json': JSON.stringify({
-      description: 'foo bar',
-      type: 'module',
-      version: '2.0.0',
-    }),
-  });
-
-  const base = new Base({ name: '../../src/index.js' }, { cwd });
-  await base.prepare();
-  await base.run('prepublishOnly');
-
-  expect(
-    await fs.readFile(
-      pathLib.join(cwd, 'dist', 'chrome', 'content.js'),
-      'utf8',
-    ),
-  ).toEqual('(function(){"use strict";var o;console.log((o=1,o*2))})();\n');
-});
-
-test('babel in vue', async ({}, testInfo) => {
-  const cwd = testInfo.outputPath('');
-
-  await outputFiles(cwd, {
-    'background.js': "console.log('background')",
-    'config.json': JSON.stringify({ name: 'Foo' }),
-    'package.json': JSON.stringify({
-      dependencies: { vue: '*' },
-      description: 'foo bar',
-      type: 'module',
-      version: '2.0.0',
-    }),
-    'popup.html': dedent`
-      <div id="app"></div>
-      <script type="module" src="./popup.js"></script>
-    `,
-    'popup.js': dedent`
-      import { createApp } from 'vue';
-
-      import Popup from './popup.vue';
-
-      createApp(Popup).mount('#app');
-    `,
-    'popup.vue': dedent`
-      <template>
-        <div class="foo">{{ foo }}</div>
-      </template>
-
-      <script setup>
-      const foo = 1 |> x => x * 2;
-      </script>
-    `,
-  });
-
-  const base = new Base({ name: '../../src/index.js' }, { cwd });
-  await base.prepare();
-  await base.run('prepublishOnly');
-
-  const context = await chromium.launchPersistentContext('', {
-    args: [
-      `--disable-extensions-except=${pathLib.join(cwd, 'dist', 'chrome')}`,
-      `--load-extension=${pathLib.join(cwd, 'dist', 'chrome')}`,
-    ],
-    channel: 'chromium',
-  });
-
-  try {
-    let [background] = context.serviceWorkers();
-    if (!background) background = await context.waitForEvent('serviceworker');
-    const extensionId = background.url().split('/')[2];
-    const page = await context.newPage();
-    await page.goto(`chrome-extension://${extensionId}/popup.html`);
-    await expect(page.locator('.foo')).toHaveText('2');
-  } finally {
-    await context.close();
-  }
-});
-
 test('browser variable', async ({}, testInfo) => {
   const cwd = testInfo.outputPath('');
 
   await outputFiles(cwd, {
-    'background.js': dedent`
-      import browser from '${packageName`webextension-polyfill`}'
+    'background.ts': endent`
+      import browser from '${packageName`webextension-polyfill`}';
 
       browser.action.onClicked.addListener(
         () => browser.storage.local.set({ enabled: true })
-      )
+      );
     `,
     'config.json': JSON.stringify({
       action: {},
       name: 'Foo',
       permissions: ['storage'],
     }),
-    'content.js': dedent`
-      import browser from '${packageName`webextension-polyfill`}'
+    'content.ts': endent`
+      import browser from '${packageName`webextension-polyfill`}';
 
       browser.storage.onChanged.addListener((changes, area) => {
         if (area === 'local' && changes.enabled?.newValue) {
-          document.body.classList.add('foo')
+          document.body.classList.add('foo');
         }
-      })
+      });
     `,
     'package.json': JSON.stringify({
       dependencies: { 'webextension-polyfill': '*' },
@@ -222,7 +144,7 @@ test('browser variable', async ({}, testInfo) => {
     }),
   });
 
-  const base = new Base({ name: '../../src/index.js' }, { cwd });
+  const base = new Base('../../src', { cwd });
   await base.prepare();
   await base.run('prepublishOnly');
 
@@ -249,7 +171,9 @@ test('browser variable', async ({}, testInfo) => {
 
       await background.evaluate(() => {
         globalThis.chrome.tabs.query({ active: true }, tabs =>
-          globalThis.chrome.action.onClicked.dispatch(tabs[0]),
+          (globalThis.chrome.action.onClicked as EventWithDispatch).dispatch(
+            tabs[0],
+          ),
         );
       });
 
@@ -275,7 +199,7 @@ test('linting error', async ({}, testInfo) => {
     }),
   });
 
-  const base = new Base({ name: '../../src/index.js' }, { cwd });
+  const base = new Base('../../src', { cwd });
   await base.prepare();
 
   await expect(base.run('prepublishOnly', { stderr: 'pipe' })).rejects.toThrow(
@@ -296,7 +220,7 @@ test('linting error fixable', async ({}, testInfo) => {
     }),
   });
 
-  const base = new Base({ name: '../../src/index.js' }, { cwd });
+  const base = new Base('../../src', { cwd });
   await base.prepare();
   await base.run('prepublishOnly');
 });
@@ -313,18 +237,18 @@ test('linting error in vue', async ({}, testInfo) => {
       type: 'module',
       version: '2.0.0',
     }),
-    'popup.html': dedent`
+    'popup.html': endent`
       <div id="app"></div>
       <script type="module" src="./popup.js"></script>
     `,
-    'popup.js': dedent`
+    'popup.js': endent`
       import { createApp } from 'vue';
 
       import Popup from './popup.vue';
 
       createApp(Popup).mount('#app');
     `,
-    'popup.vue': dedent`
+    'popup.vue': endent`
       <template>
         <div class="foo" />
       </template>
@@ -335,7 +259,7 @@ test('linting error in vue', async ({}, testInfo) => {
     `,
   });
 
-  const base = new Base({ name: '../../src/index.js' }, { cwd });
+  const base = new Base('../../src', { cwd });
   await base.prepare();
 
   await expect(base.run('prepublishOnly', { stderr: 'pipe' })).rejects.toThrow(
@@ -347,7 +271,7 @@ test('sass', async ({}, testInfo) => {
   const cwd = testInfo.outputPath('');
 
   await outputFiles(cwd, {
-    'assets/style.scss': dedent`
+    'assets/style.scss': endent`
       $color: red;
 
       body {
@@ -363,7 +287,7 @@ test('sass', async ({}, testInfo) => {
     }),
   });
 
-  const base = new Base({ name: '../../src/index.js' }, { cwd });
+  const base = new Base('../../src', { cwd });
   await base.prepare();
   await base.run('prepublishOnly');
 
@@ -411,18 +335,18 @@ test('svg', async ({}, testInfo) => {
       type: 'module',
       version: '2.0.0',
     }),
-    'popup.html': dedent`
+    'popup.html': endent`
       <div id="app"></div>
       <script type="module" src="./popup.js"></script>
     `,
-    'popup.js': dedent`
+    'popup.js': endent`
       import { createApp } from 'vue';
 
       import Popup from './popup.vue';
 
       createApp(Popup).mount('#app');
     `,
-    'popup.vue': dedent`
+    'popup.vue': endent`
       <template>
         <svg-icon />
       </template>
@@ -433,7 +357,7 @@ test('svg', async ({}, testInfo) => {
     `,
   });
 
-  const base = new Base({ name: '../../src/index.js' }, { cwd });
+  const base = new Base('../../src', { cwd });
   await base.prepare();
   await base.run('prepublishOnly');
 
@@ -464,7 +388,7 @@ test('valid', async ({}, testInfo) => {
     'assets/foo.png': '',
     'background.js': "console.log('background')",
     'config.json': JSON.stringify({ name: 'Foo' }),
-    'content.js': dedent`
+    'content.js': endent`
       import model from './model/foo.js'
 
       document.body.classList.add(model)
@@ -481,7 +405,7 @@ test('valid', async ({}, testInfo) => {
     'popup.js': '',
   });
 
-  const base = new Base({ name: '../../src/index.js' }, { cwd });
+  const base = new Base('../../src', { cwd });
   await base.prepare();
   await base.run('prepublishOnly');
 
@@ -562,25 +486,25 @@ test('vue', async ({}, testInfo) => {
       type: 'module',
       version: '2.0.0',
     }),
-    'popup.html': dedent`
+    'popup.html': endent`
       <div id="app"></div>
       <script type="module" src="./popup.js"></script>
     `,
-    'popup.js': dedent`
+    'popup.js': endent`
       import { createApp } from 'vue';
 
       import Popup from './popup.vue';
 
       createApp(Popup).mount('#app');
     `,
-    'popup.vue': dedent`
+    'popup.vue': endent`
       <template>
         <div class="foo" />
       </template>
     `,
   });
 
-  const base = new Base({ name: '../../src/index.js' }, { cwd });
+  const base = new Base('../../src', { cwd });
   await base.prepare();
   await base.run('prepublishOnly');
 

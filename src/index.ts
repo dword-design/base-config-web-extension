@@ -1,57 +1,49 @@
 import pathLib from 'node:path';
 
+import { type Base, defineBaseConfig } from '@dword-design/base';
 import depcheckParserSass from '@dword-design/depcheck-parser-sass';
-import dedent from 'dedent';
+import depcheck from 'depcheck';
 import binName from 'depcheck-bin-name';
 import packageName from 'depcheck-package-name';
-import depcheckParserVue from 'depcheck-parser-vue';
-import { execaCommand } from 'execa';
+import endent from 'endent';
 import fs from 'fs-extra';
-import lint from './lint.js';
 
-import dev from './dev.js';
-import prepublishOnly from './prepublish-only.js';
+import dev from './dev';
+import lint from './lint';
+import prepublishOnly from './prepublish-only';
 
-export default function () {
+export default defineBaseConfig(function (this: Base) {
   return {
-    allowedMatches: [
-      'assets',
-      'components',
-      'public',
-      'background.js',
-      'content.js',
-      'config.json',
-      'index.spec.js',
-      'options.html',
-      'popup.html',
-      'popup.js',
-      'popup.vue',
-      'options.js',
-      'popup.js',
-      'model',
-    ],
-    lint,
     commands: {
       dev: {
-        handler: (...args) => dev.call(this, ...args),
+        handler: (options: { browser: string }) => dev.call(this, options),
         options: [
-          { description: 'Specify a browser', name: '-b, --browser <browser>' },
+          {
+            default: 'chrome',
+            description: 'Specify a browser',
+            name: '-b, --browser <browser>',
+          },
         ],
       },
       prepublishOnly: {
-        handler: (...args) => prepublishOnly.call(this, ...args),
+        handler: (options: { browser: string }) =>
+          prepublishOnly.call(this, options),
         options: [
-          { description: 'Specify a browser', name: '-b, --browser <browser>' },
+          {
+            default: 'chrome',
+            description: 'Specify a browser',
+            name: '-b, --browser <browser>',
+          },
         ],
       },
     },
-
     depcheckConfig: {
       parsers: {
         '**/*.scss': depcheckParserSass,
-        '**/*.vue': depcheckParserVue,
+        '**/*.vue': depcheck.parser.vue,
       },
     },
+
     deployAssets: [{ label: 'Extension', path: 'extension.zip' }],
     deployEnv: {
       CHROME_CLIENT_ID: '${{ secrets.CHROME_CLIENT_ID }}',
@@ -70,9 +62,10 @@ export default function () {
         },
       ],
     ],
-    editorIgnore: ['dist', 'userdata', 'vite.config.js'],
-    gitignore: ['/dist', '/userdata', '/vite.config.js'],
+    editorIgnore: ['dist', 'userdata'],
+    gitignore: ['/dist', '/userdata'],
     isLockFileFixCommitType: true,
+    lint,
     preDeploySteps: [
       { run: 'pnpm prepublishOnly' },
       {
@@ -84,7 +77,7 @@ export default function () {
       { run: 'git archive --output=dist/firefox-sources.zip HEAD' },
     ],
     prepare: () => fs.ensureDir(pathLib.join(this.cwd, 'userdata')),
-    readmeInstallString: dedent`
+    readmeInstallString: endent`
       ## Recommended setup
       * Node.js 20.11.1
       * pnpm 9.15.3
@@ -96,14 +89,14 @@ export default function () {
 
       ## Running a development server
       \`\`\`bash
-      $ pnpm dev [browser]
+      $ pnpm dev -b <browser>
       \`\`\`
       Available browsers are \`firefox\` and \`chrome\`. Default is \`firefox\`.
 
       ## Building the extension for upload
       \`\`\`bash
-      $ pnpm prepublishOnly [browser]
+      $ pnpm prepublishOnly -b <browser>
       \`\`\`
     `,
   };
-}
+});

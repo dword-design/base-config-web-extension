@@ -1,14 +1,15 @@
+import type { Base, PartialCommandOptions } from '@dword-design/base';
 import { execaCommand } from 'execa';
 
-export default function (...args) {
-  let options = typeof args[0] === 'string' ? args[1] : args[0];
-
+export default function (
+  this: Base,
+  options: PartialCommandOptions & { browser?: string },
+) {
   options = {
     browser: 'chrome',
     env: {},
     log: process.env.NODE_ENV !== 'test',
     stderr: 'inherit',
-    ...(typeof args[0] === 'string' && { browser: args[0] }),
     ...options,
   };
 
