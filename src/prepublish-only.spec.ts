@@ -20,7 +20,7 @@ test.only('action with icon', async ({}, testInfo) => {
 
   await outputFiles(cwd, {
     'entrypoints/content.ts':
-      "export default defineContentScript({ main: () => console.log('content') })\n",
+      "export default defineContentScript({ matches: ['<all_urls>'], main: () => console.log('content') })\n",
     'package.json': JSON.stringify({
       description: 'foo bar',
       type: 'module',
