@@ -11,6 +11,7 @@ import fs from 'fs-extra';
 import dev from './dev';
 import lint from './lint';
 import prepublishOnly from './prepublish-only';
+import typecheck from './typecheck';
 
 export default defineBaseConfig(function (this: Base) {
   return {
@@ -62,8 +63,8 @@ export default defineBaseConfig(function (this: Base) {
         },
       ],
     ],
-    editorIgnore: ['dist', 'userdata'],
-    gitignore: ['/dist', '/userdata'],
+    editorIgnore: ['.wxt', 'dist', 'userdata'],
+    gitignore: ['/.wxt', '/dist', '/userdata'],
     isLockFileFixCommitType: true,
     lint,
     preDeploySteps: [
@@ -77,6 +78,7 @@ export default defineBaseConfig(function (this: Base) {
       { run: 'git archive --output=dist/firefox-sources.zip HEAD' },
     ],
     prepare: () => fs.ensureDir(pathLib.join(this.cwd, 'userdata')),
+    typecheck,
     readmeInstallString: endent`
       ## Recommended setup
       * Node.js 20.11.1
@@ -98,5 +100,8 @@ export default defineBaseConfig(function (this: Base) {
       $ pnpm prepublishOnly -b <browser>
       \`\`\`
     `,
+    typescriptConfig: {
+      extends: './.wxt/tsconfig.json',
+    },
   };
 });

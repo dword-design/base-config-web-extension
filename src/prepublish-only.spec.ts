@@ -25,9 +25,12 @@ test.only('action with icon', async ({}, testInfo) => {
       description: 'foo bar',
       type: 'module',
       version: '2.0.0',
+      peerDependencies: { 'wxt': '*' },
     }),
     'public/icon-128.png': '',
     'wxt.config.ts': endent`
+      import { defineConfig } from 'wxt';
+
       export default defineConfig({
         manifest: {
           action: {},
