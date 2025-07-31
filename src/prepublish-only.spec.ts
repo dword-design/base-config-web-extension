@@ -15,8 +15,8 @@ interface EventWithDispatch
   dispatch: (tab: chrome.tabs.Tab) => void;
 }
 
-test('action with icon', async ({}, testInfo) => {
-  const cwd = testInfo.outputPath('');
+test.only('action with icon', async ({}, testInfo) => {
+  const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
     'entrypoints/content.ts':
@@ -44,7 +44,7 @@ test('action with icon', async ({}, testInfo) => {
 });
 
 test('alias', async ({}, testInfo) => {
-  const cwd = testInfo.outputPath('');
+  const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
     'background.ts': "console.log('background')",
@@ -112,7 +112,7 @@ test('alias', async ({}, testInfo) => {
 });
 
 test('browser variable', async ({}, testInfo) => {
-  const cwd = testInfo.outputPath('');
+  const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
     'background.ts': endent`
@@ -187,7 +187,7 @@ test('browser variable', async ({}, testInfo) => {
 });
 
 test('linting error', async ({}, testInfo) => {
-  const cwd = testInfo.outputPath('');
+  const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
     'config.json': JSON.stringify({ name: 'Foo' }),
@@ -208,7 +208,7 @@ test('linting error', async ({}, testInfo) => {
 });
 
 test('linting error fixable', async ({}, testInfo) => {
-  const cwd = testInfo.outputPath('');
+  const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
     'config.json': JSON.stringify({ name: 'Foo' }),
@@ -226,7 +226,7 @@ test('linting error fixable', async ({}, testInfo) => {
 });
 
 test('linting error in vue', async ({}, testInfo) => {
-  const cwd = testInfo.outputPath('');
+  const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
     'background.js': "console.log('background')",
@@ -268,7 +268,7 @@ test('linting error in vue', async ({}, testInfo) => {
 });
 
 test('sass', async ({}, testInfo) => {
-  const cwd = testInfo.outputPath('');
+  const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
     'assets/style.scss': endent`
@@ -324,7 +324,7 @@ test('sass', async ({}, testInfo) => {
 });
 
 test('svg', async ({}, testInfo) => {
-  const cwd = testInfo.outputPath('');
+  const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
     'background.js': "console.log('background')",
@@ -382,7 +382,7 @@ test('svg', async ({}, testInfo) => {
 });
 
 test('valid', async ({}, testInfo) => {
-  const cwd = testInfo.outputPath('');
+  const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
     'assets/foo.png': '',
@@ -475,7 +475,7 @@ test('valid', async ({}, testInfo) => {
 });
 
 test('vue', async ({}, testInfo) => {
-  const cwd = testInfo.outputPath('');
+  const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
     'background.js': "console.log('background')",
