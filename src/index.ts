@@ -16,6 +16,13 @@ import typecheck from './typecheck';
 
 export default defineBaseConfig(function (this: Base) {
   return {
+    allowedMatches: Object.keys({
+      assets: true,
+      components: true,
+      entrypoints: true,
+      'index.spec.ts': true,
+      public: true,
+    }),
     commands: {
       dev: {
         handler: (options: { browser: string }) => dev.call(this, options),
@@ -78,14 +85,18 @@ export default defineBaseConfig(function (this: Base) {
       { run: 'zip -r ../firefox.zip .', 'working-directory': 'dist/firefox' },
       { run: 'git archive --output=dist/firefox-sources.zip HEAD' },
     ],
-    prepare: () => Promise.all([
-      fs.ensureDir(pathLib.join(this.cwd, 'userdata')),
-      fs.outputFile(pathLib.join(this.cwd, '.wxtrc'), `${stringifyIni({
-        outDir: 'dist',
-        outDirTemplate: '{{browser}}',
-      })}\n`),
-    ]),
-    typecheck,
+    prepare: () =>
+      Promise.all([
+        fs.ensureDir(pathLib.join(this.cwd, 'userdata')),
+        fs.outputFile(
+          pathLib.join(this.cwd, '.wxtrc'),
+          stringifyIni({
+            modules: [packageName`@wxt-dev/module-vue`],
+            outDir: 'dist',
+            outDirTemplate: '{{browser}}',
+          }),
+        ),
+      ]),
     readmeInstallString: endent`
       ## Recommended setup
       * Node.js 20.11.1
@@ -107,11 +118,12 @@ export default defineBaseConfig(function (this: Base) {
       $ pnpm prepublishOnly -b <browser>
       \`\`\`
     `,
+    typecheck,
     typescriptConfig: {
-      extends: './.wxt/tsconfig.json',
       compilerOptions: {
         declaration: false, // OtherwiseTypeScript error when declaring a content script via defineContentScript: "The inferred type of 'default' cannot be named without a reference to '@/node_modules/wxt/dist/types'. This is likely not portable. A type annotation is necessary.",
-      }
+      },
+      extends: './.wxt/tsconfig.json',
     },
   };
 });

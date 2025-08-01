@@ -13,9 +13,9 @@ export default async function (
     stderr: 'inherit',
     ...options,
   };
+
   await this.lint(omit(options, ['browser']));
   await this.typecheck(omit(options, ['browser']));
-
   return execaCommand(
     `wxt build${options.browser ? ` -b ${options.browser}` : ''}`,
     {
