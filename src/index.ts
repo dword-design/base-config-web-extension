@@ -8,6 +8,7 @@ import packageName from 'depcheck-package-name';
 import endent from 'endent';
 import fs from 'fs-extra';
 import { stringify as stringifyIni } from 'ini';
+import outputFiles from 'output-files';
 
 import dev from './dev';
 import lint from './lint';
@@ -88,14 +89,21 @@ export default defineBaseConfig(function (this: Base) {
     prepare: () =>
       Promise.all([
         fs.ensureDir(pathLib.join(this.cwd, 'userdata')),
-        fs.outputFile(
-          pathLib.join(this.cwd, '.wxtrc'),
-          stringifyIni({
+        outputFiles(this.cwd, {
+          '.wxtrc': stringifyIni({
             modules: [packageName`@wxt-dev/module-vue`],
             outDir: 'dist',
             outDirTemplate: '{{browser}}',
           }),
-        ),
+          'web-ext.config.ts': endent`
+            import { defineWebExtConfig } from 'wxt';
+
+            export default defineWebExtConfig({
+              keepProfileChanges: true,
+              chromiumProfile: 'userdata', // chromiumArgs: ['--user-data-dir=userdata'] doesn't keep sessions across dev restarts
+            });\n
+          `,
+        }),
       ]),
     readmeInstallString: endent`
       ## Recommended setup

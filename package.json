@@ -42,6 +42,7 @@
     "fs-extra": "^11.3.0",
     "ini": "^5.0.0",
     "lodash-es": "^4.17.21",
+    "output-files": "^3.0.0",
     "publish-browser-extension": "^2.3.1",
     "wxt": "npm:@dword-design/wxt-fork@^0.0.2"
   },
@@ -53,8 +54,7 @@
     "@types/ini": "^4.1.1",
     "@types/lodash-es": "^4.17.12",
     "express": "^5.1.0",
-    "get-port": "^7.1.0",
-    "output-files": "^3.0.0"
+    "get-port": "^7.1.0"
   },
   "peerDependencies": {
     "depcheck": "*"
