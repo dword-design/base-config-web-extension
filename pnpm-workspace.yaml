@@ -2,4 +2,4 @@ ignoredBuiltDependencies:
   - esbuild
   - spawn-sync
 onlyBuiltDependencies:
-  - playwright-chromium
+  - '@playwright/browser-chromium'
