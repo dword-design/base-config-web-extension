@@ -103,8 +103,7 @@ test('vue', async ({}, testInfo) => {
 
   try {
     const page = await context.newPage();
-    let [background] = context.serviceWorkers();
-    if (!background) background = await context.waitForEvent('serviceworker');
+    const [background] = context.serviceWorkers();
     const extensionId = background.url().split('/')[2];
     await page.goto(`chrome-extension://${extensionId}/popup.html`);
     await expect(page.locator('.foo')).toBeAttached();
