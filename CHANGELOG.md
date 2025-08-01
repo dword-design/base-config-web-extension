@@ -1,3 +1,10 @@
+## [4.0.1](https://github.com/dword-design/base-config-web-extension/compare/v4.0.0...v4.0.1) (2025-08-01)
+
+
+### Bug Fixes
+
+* userdata dir ([44ba808](https://github.com/dword-design/base-config-web-extension/commit/44ba8085171b509c14e1d72a8b38810a0b031aa0))
+
 # [4.0.0](https://github.com/dword-design/base-config-web-extension/compare/v3.1.11...v4.0.0) (2025-08-01)
 
 
