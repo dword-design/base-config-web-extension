@@ -41,6 +41,7 @@
     "endent": "npm:@dword-design/endent@^1.4.7",
     "execa": "^9.6.0",
     "fs-extra": "^11.3.0",
+    "ini": "^5.0.0",
     "load-pkg": "^4.0.0",
     "lodash-es": "^4.17.21",
     "publish-browser-extension": "^2.3.1",
@@ -50,7 +51,7 @@
     "vite-plugin-web-extension": "^4.4.5",
     "vite-svg-loader": "^5.1.0",
     "vue": "^3.5.18",
-    "wxt": "^0.20.7"
+    "wxt": "npm:@dword-design/wxt-fork@^0.0.2"
   },
   "devDependencies": {
     "@mdi/svg": "^7.4.47",
@@ -59,7 +60,9 @@
     "@types/chrome": "^0.1.1",
     "@types/express": "^5.0.3",
     "@types/fs-extra": "^11.0.4",
+    "@types/ini": "^4.1.1",
     "@types/lodash-es": "^4.17.12",
+    "@wxt-dev/module-vue": "^1.0.2",
     "express": "^5.1.0",
     "get-port": "^7.1.0",
     "globby": "^14.1.0",

@@ -7,6 +7,7 @@ import binName from 'depcheck-bin-name';
 import packageName from 'depcheck-package-name';
 import endent from 'endent';
 import fs from 'fs-extra';
+import { stringify as stringifyIni } from 'ini';
 
 import dev from './dev';
 import lint from './lint';
@@ -77,7 +78,13 @@ export default defineBaseConfig(function (this: Base) {
       { run: 'zip -r ../firefox.zip .', 'working-directory': 'dist/firefox' },
       { run: 'git archive --output=dist/firefox-sources.zip HEAD' },
     ],
-    prepare: () => fs.ensureDir(pathLib.join(this.cwd, 'userdata')),
+    prepare: () => Promise.all([
+      fs.ensureDir(pathLib.join(this.cwd, 'userdata')),
+      fs.outputFile(pathLib.join(this.cwd, '.wxtrc'), `${stringifyIni({
+        outDir: 'dist',
+        outDirTemplate: '{{browser}}',
+      })}\n`),
+    ]),
     typecheck,
     readmeInstallString: endent`
       ## Recommended setup
@@ -102,6 +109,9 @@ export default defineBaseConfig(function (this: Base) {
     `,
     typescriptConfig: {
       extends: './.wxt/tsconfig.json',
+      compilerOptions: {
+        declaration: false, // OtherwiseTypeScript error when declaring a content script via defineContentScript: "The inferred type of 'default' cannot be named without a reference to '@/node_modules/wxt/dist/types'. This is likely not portable. A type annotation is necessary.",
+      }
     },
   };
 });
