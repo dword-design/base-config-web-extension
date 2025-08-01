@@ -1,3 +1,16 @@
+# [4.0.0](https://github.com/dword-design/base-config-web-extension/compare/v3.1.11...v4.0.0) (2025-08-01)
+
+
+### Features
+
+* wxt ([#150](https://github.com/dword-design/base-config-web-extension/issues/150)) ([8480567](https://github.com/dword-design/base-config-web-extension/commit/84805676b9a0da8b22a44b78d5f8eb95f58579ac))
+
+
+### BREAKING CHANGES
+
+* wxt
+* node.js >= 20
+
 ## [3.1.11](https://github.com/dword-design/base-config-web-extension/compare/v3.1.10...v3.1.11) (2025-05-30)
 
 
