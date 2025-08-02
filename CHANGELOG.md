@@ -1,3 +1,10 @@
+## [4.0.5](https://github.com/dword-design/base-config-web-extension/compare/v4.0.4...v4.0.5) (2025-08-02)
+
+
+### Bug Fixes
+
+* startUrl option ([aa62df0](https://github.com/dword-design/base-config-web-extension/commit/aa62df0edd260a534aad2482a14165156e3fc30e))
+
 ## [4.0.4](https://github.com/dword-design/base-config-web-extension/compare/v4.0.3...v4.0.4) (2025-08-02)
 
 
