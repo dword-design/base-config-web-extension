@@ -18,11 +18,16 @@ import typecheck from './typecheck';
 export default defineBaseConfig(function (this: Base) {
   return {
     allowedMatches: Object.keys({
+      '.wxtrc': true,
       assets: true,
       components: true,
       entrypoints: true,
       'index.spec.ts': true,
+      modules: true,
+      utils: true,
       public: true,
+      'web-ext.config.ts': true,
+      'wxt.config.ts': true,
     }),
     commands: {
       dev: {
