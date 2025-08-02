@@ -1,3 +1,10 @@
+## [4.0.2](https://github.com/dword-design/base-config-web-extension/compare/v4.0.1...v4.0.2) (2025-08-02)
+
+
+### Bug Fixes
+
+* allowed matches ([abf0540](https://github.com/dword-design/base-config-web-extension/commit/abf05405af6e55a35b9ed68fbe1ba804eb9daa1a))
+
 ## [4.0.1](https://github.com/dword-design/base-config-web-extension/compare/v4.0.0...v4.0.1) (2025-08-01)
 
 
