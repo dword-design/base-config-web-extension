@@ -10,12 +10,16 @@ import fs from 'fs-extra';
 import { stringify as stringifyIni } from 'ini';
 import outputFiles from 'output-files';
 
+import { BaseConfig } from './base-config';
 import dev from './dev';
 import lint from './lint';
 import prepublishOnly from './prepublish-only';
 import typecheck from './typecheck';
 
-export default defineBaseConfig(function (this: Base) {
+export default defineBaseConfig(function (
+  this: Base<BaseConfig>,
+  config: BaseConfig,
+) {
   return {
     allowedMatches: Object.keys({
       '.wxtrc': true,
@@ -104,7 +108,7 @@ export default defineBaseConfig(function (this: Base) {
             import { defineWebExtConfig } from 'wxt';
 
             export default defineWebExtConfig({
-              chromiumProfile: 'userdata', // chromiumArgs: ['--user-data-dir=userdata'] doesn't keep sessions across dev restarts
+              ${config.startUrl ? `chromiumArgs: ['${config.startUrl}'],` : ''}chromiumProfile: 'userdata', // chromiumArgs: ['--user-data-dir=userdata'] doesn't keep sessions across dev restarts
               keepProfileChanges: true,
             });\n
           `,
