@@ -105,7 +105,7 @@ export default defineBaseConfig(function (
     gitignore: ['/.stylelintcache', '/.wxt', '/dist', '/userdata'],
     isLockFileFixCommitType: true,
     lint,
-    lintStagedConfig: { '.{vue,css,scss}': 'stylelint --fix' },
+    lintStagedConfig: { '.{css,scss,vue}': 'stylelint --fix' },
     preDeploySteps: [
       { run: 'pnpm prepublishOnly' },
       { run: 'pnpm wxt zip' },
