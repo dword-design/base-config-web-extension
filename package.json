@@ -36,6 +36,7 @@
     "@dword-design/stylelint-config": "^4.1.0",
     "@semantic-release/exec": "^6.0.3",
     "@wxt-dev/module-vue": "^1.0.2",
+    "depcheck-bin-name": "^2.0.0",
     "depcheck-package-name": "^4.0.0",
     "endent": "npm:@dword-design/endent@^1.4.7",
     "execa": "^9.6.0",

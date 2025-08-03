@@ -3,6 +3,7 @@ import pathLib from 'node:path';
 import { type Base, defineBaseConfig } from '@dword-design/base';
 import depcheckParserSass from '@dword-design/depcheck-parser-sass';
 import depcheck from 'depcheck';
+import binName from 'depcheck-bin-name';
 import packageName from 'depcheck-package-name';
 import endent from 'endent';
 import fs from 'fs-extra';
@@ -105,7 +106,7 @@ export default defineBaseConfig(function (
     gitignore: ['/.stylelintcache', '/.wxt', '/dist', '/userdata'],
     isLockFileFixCommitType: true,
     lint,
-    lintStagedConfig: { '.{css,scss,vue}': 'stylelint --fix' },
+    lintStagedConfig: { '.{css,scss,vue}': `${binName`stylelint`} --fix` },
     preDeploySteps: [
       { run: 'pnpm prepublishOnly' },
       { run: 'pnpm wxt zip' },
