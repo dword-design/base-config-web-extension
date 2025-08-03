@@ -109,10 +109,14 @@ export default defineBaseConfig(function (
 
             export default defineWebExtConfig({
               ${[
-                ...config.startUrl ? [`chromiumArgs: ['${config.startUrl}']`] : [],
+                ...(config.startUrl
+                  ? [`chromiumArgs: ['${config.startUrl}']`]
+                  : []),
                 "chromiumProfile: 'userdata', // chromiumArgs: ['--user-data-dir=userdata'] doesn't keep sessions across dev restarts",
                 'keepProfileChanges: true',
-              ].map(line => `${line},\n`).join('')}
+              ]
+                .map(line => `${line},\n`)
+                .join('')}
             });\n
           `,
         }),
