@@ -1,3 +1,10 @@
+## [4.0.7](https://github.com/dword-design/base-config-web-extension/compare/v4.0.6...v4.0.7) (2025-08-03)
+
+
+### Bug Fixes
+
+* use wxt for publishing ([0a099f2](https://github.com/dword-design/base-config-web-extension/commit/0a099f28a2ad51c247d346b5a5cef1b246100a04))
+
 ## [4.0.6](https://github.com/dword-design/base-config-web-extension/compare/v4.0.5...v4.0.6) (2025-08-03)
 
 
