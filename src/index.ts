@@ -22,6 +22,8 @@ export default defineBaseConfig(function (
 ) {
   return {
     allowedMatches: Object.keys({
+      '.stylelintignore': true,
+      '.stylelintrc.json': true,
       '.wxtrc': true,
       assets: true,
       components: true,
@@ -72,8 +74,8 @@ export default defineBaseConfig(function (
         '**/*.vue': depcheck.parser.vue,
       },
     },
-
     deployAssets: [{ label: 'Extension', path: 'extension.zip' }],
+
     deployEnv: {
       CHROME_CLIENT_ID: '${{ secrets.CHROME_CLIENT_ID }}',
       CHROME_CLIENT_SECRET: '${{ secrets.CHROME_CLIENT_SECRET }}',
@@ -92,10 +94,18 @@ export default defineBaseConfig(function (
         },
       ],
     ],
-    editorIgnore: ['.wxt', 'dist', 'userdata'],
-    gitignore: ['/.wxt', '/dist', '/userdata'],
+    editorIgnore: [
+      '.stylelintcache',
+      '.stylelintignore',
+      '.stylelintrc.json',
+      '.wxt',
+      'dist',
+      'userdata',
+    ],
+    gitignore: ['/.stylelintcache', '/.wxt', '/dist', '/userdata'],
     isLockFileFixCommitType: true,
     lint,
+    lintStagedConfig: { '.{vue,css,scss}': 'stylelint --fix' },
     preDeploySteps: [
       { run: 'pnpm prepublishOnly' },
       { run: 'pnpm wxt zip' },
@@ -105,6 +115,11 @@ export default defineBaseConfig(function (
       Promise.all([
         fs.ensureDir(pathLib.join(this.cwd, 'userdata')),
         outputFiles(this.cwd, {
+          '.stylelintrc.json': `${JSON.stringify(
+            { extends: packageName`@dword-design/stylelint-config` },
+            undefined,
+            2,
+          )}\n`,
           '.wxtrc': stringifyIni({
             modules: [packageName`@wxt-dev/module-vue`],
             outDir: 'dist',
