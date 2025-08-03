@@ -1,3 +1,12 @@
+## [4.0.10](https://github.com/dword-design/base-config-web-extension/compare/v4.0.9...v4.0.10) (2025-08-03)
+
+
+### Bug Fixes
+
+* foo ([e734352](https://github.com/dword-design/base-config-web-extension/commit/e73435202a6a570caa4445648dc663b5c52930e4))
+* foo ([882a500](https://github.com/dword-design/base-config-web-extension/commit/882a500fc01299a1d9100e056e740673fb329d71))
+* stylelint ([77c8c0e](https://github.com/dword-design/base-config-web-extension/commit/77c8c0ed711d3cc425f9716e3cf3b63fc95f70ba))
+
 ## [4.0.9](https://github.com/dword-design/base-config-web-extension/compare/v4.0.8...v4.0.9) (2025-08-03)
 
 
