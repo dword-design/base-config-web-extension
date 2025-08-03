@@ -3,7 +3,6 @@ import pathLib from 'node:path';
 import { type Base, defineBaseConfig } from '@dword-design/base';
 import depcheckParserSass from '@dword-design/depcheck-parser-sass';
 import depcheck from 'depcheck';
-import binName from 'depcheck-bin-name';
 import packageName from 'depcheck-package-name';
 import endent from 'endent';
 import fs from 'fs-extra';
@@ -77,7 +76,8 @@ export default defineBaseConfig(function (
       [
         packageName`@semantic-release/exec`,
         {
-          publishCmd: `pnpm ${binName`publish-extension`} --chrome-zip=dist/chrome.zip --firefox-zip=dist/firefox.zip --firefox-sources-zip=dist/firefox-sources.zip`,
+          publishCmd:
+            'pnpm wxt submit --chrome-zip dist/*-chrome.zip --firefox-zip dist/*-firefox.zip --firefox-sources-zip dist/*-sources.zip',
         },
       ],
     ],
@@ -87,13 +87,8 @@ export default defineBaseConfig(function (
     lint,
     preDeploySteps: [
       { run: 'pnpm prepublishOnly' },
-      {
-        env: { FIREFOX_EXTENSION_ID: '${{ secrets.FIREFOX_EXTENSION_ID }}' },
-        run: 'pnpm prepublishOnly firefox',
-      },
-      { run: 'zip -r ../chrome.zip .', 'working-directory': 'dist/chrome' },
-      { run: 'zip -r ../firefox.zip .', 'working-directory': 'dist/firefox' },
-      { run: 'git archive --output=dist/firefox-sources.zip HEAD' },
+      { run: 'pnpm wxt zip' },
+      { run: 'pnpm wxt zip -b firefox' },
     ],
     prepare: () =>
       Promise.all([
