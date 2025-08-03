@@ -10,6 +10,7 @@ import { stringify as stringifyIni } from 'ini';
 import outputFiles from 'output-files';
 
 import { BaseConfig } from './base-config';
+import build from './build';
 import dev from './dev';
 import lint from './lint';
 import prepublishOnly from './prepublish-only';
@@ -33,6 +34,16 @@ export default defineBaseConfig(function (
       'wxt.config.ts': true,
     }),
     commands: {
+      build: {
+        handler: (options: { browser: string }) => build.call(this, options),
+        options: [
+          {
+            default: 'chrome',
+            description: 'Specify a browser',
+            name: '-b, --browser <browser>',
+          },
+        ],
+      },
       dev: {
         handler: (options: { browser: string }) => dev.call(this, options),
         options: [
