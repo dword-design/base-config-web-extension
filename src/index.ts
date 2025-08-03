@@ -108,8 +108,11 @@ export default defineBaseConfig(function (
             import { defineWebExtConfig } from 'wxt';
 
             export default defineWebExtConfig({
-              ${config.startUrl ? `chromiumArgs: ['${config.startUrl}'],` : ''}chromiumProfile: 'userdata', // chromiumArgs: ['--user-data-dir=userdata'] doesn't keep sessions across dev restarts
-              keepProfileChanges: true,
+              ${[
+                ...config.startUrl ? [`chromiumArgs: ['${config.startUrl}']`] : [],
+                "chromiumProfile: 'userdata', // chromiumArgs: ['--user-data-dir=userdata'] doesn't keep sessions across dev restarts",
+                'keepProfileChanges: true',
+              ].map(line => `${line},\n`).join('')}
             });\n
           `,
         }),
