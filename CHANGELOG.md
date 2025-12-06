@@ -1,3 +1,16 @@
+# [5.0.0](https://github.com/dword-design/base-config-web-extension/compare/v4.0.10...v5.0.0) (2025-12-06)
+
+
+### Bug Fixes
+
+* delete postcreate.sh ([f2c6121](https://github.com/dword-design/base-config-web-extension/commit/f2c612116c678f5756f99d6df0abc6543544a31e))
+* update dependency @dword-design/base to v16 ([#175](https://github.com/dword-design/base-config-web-extension/issues/175)) ([6d91415](https://github.com/dword-design/base-config-web-extension/commit/6d9141579683a4ebbcc1d554a80a6607691bfd43))
+
+
+### BREAKING CHANGES
+
+* node >= 22
+
 ## [4.0.10](https://github.com/dword-design/base-config-web-extension/compare/v4.0.9...v4.0.10) (2025-08-03)
 
 
