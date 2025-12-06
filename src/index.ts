@@ -1,6 +1,6 @@
 import pathLib from 'node:path';
 
-import { type Base, defineBaseConfig } from '@dword-design/base';
+import { type Base, type Config, defineBaseConfig } from '@dword-design/base';
 import depcheckParserSass from '@dword-design/depcheck-parser-sass';
 import depcheck from 'depcheck';
 import binName from 'depcheck-bin-name';
@@ -10,16 +10,17 @@ import fs from 'fs-extra';
 import { stringify as stringifyIni } from 'ini';
 import outputFiles from 'output-files';
 
-import { BaseConfig } from './base-config';
 import build from './build';
 import dev from './dev';
 import lint from './lint';
 import prepublishOnly from './prepublish-only';
 import typecheck from './typecheck';
 
+export type ConfigWebExtension = Config & { startUrl?: string }; // TODO: Fields should be defaulted in Base
+
 export default defineBaseConfig(function (
-  this: Base<BaseConfig>,
-  config: BaseConfig,
+  this: Base<ConfigWebExtension>,
+  config: ConfigWebExtension,
 ) {
   return {
     allowedMatches: Object.keys({
