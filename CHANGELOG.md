@@ -1,3 +1,10 @@
+## [5.0.1](https://github.com/dword-design/base-config-web-extension/compare/v5.0.0...v5.0.1) (2025-12-06)
+
+
+### Bug Fixes
+
+* update pnpm to v10.24.0 ([#147](https://github.com/dword-design/base-config-web-extension/issues/147)) ([d16aed3](https://github.com/dword-design/base-config-web-extension/commit/d16aed357297d62840a673f313b6e3cd119a72bf))
+
 # [5.0.0](https://github.com/dword-design/base-config-web-extension/compare/v4.0.10...v5.0.0) (2025-12-06)
 
 
