@@ -1,3 +1,10 @@
+## [5.0.2](https://github.com/dword-design/base-config-web-extension/compare/v5.0.1...v5.0.2) (2025-12-06)
+
+
+### Bug Fixes
+
+* private config ([d73b976](https://github.com/dword-design/base-config-web-extension/commit/d73b9765887ef557baffee85efc4a52b212c5503))
+
 ## [5.0.1](https://github.com/dword-design/base-config-web-extension/compare/v5.0.0...v5.0.1) (2025-12-06)
 
 
