@@ -9,6 +9,7 @@ import endent from 'endent';
 import fs from 'fs-extra';
 import { stringify as stringifyIni } from 'ini';
 import outputFiles from 'output-files';
+import { readPackageSync } from 'read-pkg';
 
 import build from './build';
 import dev from './dev';
@@ -22,6 +23,7 @@ export default defineBaseConfig(function (
   this: Base<ConfigWebExtension>,
   config: ConfigWebExtension,
 ) {
+  const packageConfig = readPackageSync({ cwd: this.cwd });
   return {
     allowedMatches: Object.keys({
       '.stylelintignore': true,
@@ -76,26 +78,33 @@ export default defineBaseConfig(function (
         '**/*.vue': depcheck.parser.vue,
       },
     },
-    deployAssets: [{ label: 'Extension', path: 'extension.zip' }],
+    ...(!packageConfig.private && {
+      deployAssets: [{ label: 'Extension', path: 'extension.zip' }],
 
-    deployEnv: {
-      CHROME_CLIENT_ID: '${{ secrets.CHROME_CLIENT_ID }}',
-      CHROME_CLIENT_SECRET: '${{ secrets.CHROME_CLIENT_SECRET }}',
-      CHROME_EXTENSION_ID: '${{ secrets.CHROME_EXTENSION_ID }}',
-      CHROME_REFRESH_TOKEN: '${{ secrets.CHROME_REFRESH_TOKEN }}',
-      FIREFOX_EXTENSION_ID: '${{ secrets.FIREFOX_EXTENSION_ID }}',
-      FIREFOX_JWT_ISSUER: '${{ secrets.FIREFOX_JWT_ISSUER }}',
-      FIREFOX_JWT_SECRET: '${{ secrets.FIREFOX_JWT_SECRET }}',
-    },
-    deployPlugins: [
-      [
-        packageName`@semantic-release/exec`,
-        {
-          publishCmd:
-            'pnpm wxt submit --chrome-zip dist/*-chrome.zip --firefox-zip dist/*-firefox.zip --firefox-sources-zip dist/*-sources.zip',
-        },
+      deployEnv: {
+        CHROME_CLIENT_ID: '${{ secrets.CHROME_CLIENT_ID }}',
+        CHROME_CLIENT_SECRET: '${{ secrets.CHROME_CLIENT_SECRET }}',
+        CHROME_EXTENSION_ID: '${{ secrets.CHROME_EXTENSION_ID }}',
+        CHROME_REFRESH_TOKEN: '${{ secrets.CHROME_REFRESH_TOKEN }}',
+        FIREFOX_EXTENSION_ID: '${{ secrets.FIREFOX_EXTENSION_ID }}',
+        FIREFOX_JWT_ISSUER: '${{ secrets.FIREFOX_JWT_ISSUER }}',
+        FIREFOX_JWT_SECRET: '${{ secrets.FIREFOX_JWT_SECRET }}',
+      },
+      deployPlugins: [
+        [
+          packageName`@semantic-release/exec`,
+          {
+            publishCmd:
+              'pnpm wxt submit --chrome-zip dist/*-chrome.zip --firefox-zip dist/*-firefox.zip --firefox-sources-zip dist/*-sources.zip',
+          },
+        ],
       ],
-    ],
+      preDeploySteps: [
+        { run: 'pnpm prepublishOnly' },
+        { run: 'pnpm wxt zip' },
+        { run: 'pnpm wxt zip -b firefox' },
+      ],
+    }),
     editorIgnore: [
       '.stylelintcache',
       '.stylelintignore',
@@ -108,11 +117,6 @@ export default defineBaseConfig(function (
     isLockFileFixCommitType: true,
     lint,
     lintStagedConfig: { '.{css,scss,vue}': `${binName`stylelint`} --fix` },
-    preDeploySteps: [
-      { run: 'pnpm prepublishOnly' },
-      { run: 'pnpm wxt zip' },
-      { run: 'pnpm wxt zip -b firefox' },
-    ],
     prepare: () =>
       Promise.all([
         fs.ensureDir(pathLib.join(this.cwd, 'userdata')),

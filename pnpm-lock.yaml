@@ -47,6 +47,9 @@ importers:
       output-files:
         specifier: ^3.0.0
         version: 3.0.0
+      read-pkg:
+        specifier: ^10.0.0
+        version: 10.0.0
       stylelint:
         specifier: ^16.23.0
         version: 16.26.1(typescript@5.9.3)
@@ -7753,7 +7756,7 @@ snapshots:
 
   caniuse-api@3.0.0:
     dependencies:
-      browserslist: 4.28.0
+      browserslist: 4.28.1
       caniuse-lite: 1.0.30001757
       lodash.memoize: 4.1.2
       lodash.uniq: 4.5.0
@@ -11141,7 +11144,7 @@ snapshots:
 
   stylehacks@7.0.7(postcss@8.5.6):
     dependencies:
-      browserslist: 4.28.0
+      browserslist: 4.28.1
       postcss: 8.5.6
       postcss-selector-parser: 7.1.1
 
