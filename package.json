@@ -35,7 +35,7 @@
     "@semantic-release/exec": "^7.1.0",
     "@wxt-dev/module-vue": "^1.0.2",
     "depcheck-bin-name": "^2.0.0",
-    "depcheck-package-name": "^4.0.0",
+    "depcheck-package-name": "^5.0.0",
     "endent": "npm:@dword-design/endent@^1.4.7",
     "execa": "^9.6.0",
     "fs-extra": "^11.3.0",

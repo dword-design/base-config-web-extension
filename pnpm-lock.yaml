@@ -27,8 +27,8 @@ importers:
         specifier: ^2.0.0
         version: 2.0.0
       depcheck-package-name:
-        specifier: ^4.0.0
-        version: 4.0.1
+        specifier: ^5.0.0
+        version: 5.0.0
       endent:
         specifier: npm:@dword-design/endent@^1.4.7
         version: '@dword-design/endent@1.4.7'
@@ -2212,6 +2212,10 @@ packages:
   depcheck-package-name@4.0.1:
     resolution: {integrity: sha512-Jt6XKYnjtC9AMP8+lD+I7J+Fr39e9Ll6O7xg6pzqhxFiCtUuDFPLrY89bMLtXBqFvzTE8h071K33CshYJmRuIg==}
     engines: {node: '>=20'}
+
+  depcheck-package-name@5.0.0:
+    resolution: {integrity: sha512-TmI3C6OMPmDoqNkv3pTUlSgfi2KoTpckBM98+p3bsCbES9OR7oHYCzgxm0QR6DdKSkrt/mFDNx8CKhCtbWRVag==}
+    engines: {node: '>=22'}
 
   depd@2.0.0:
     resolution: {integrity: sha512-g7nH6P6dyDioJogAAGprGpCtVImJhpPk/roCzdb3fIh61/s/nPsfR6onyMwkCAR/OlC3yBC0lESvUoQEAssIrw==}
@@ -8235,6 +8239,10 @@ snapshots:
     dependencies:
       tagged-template-noop: 2.1.1
 
+  depcheck-package-name@5.0.0:
+    dependencies:
+      tagged-template-noop: 2.1.1
+
   depd@2.0.0: {}
 
   deps-regex@0.2.0: {}
@@ -10336,7 +10344,7 @@ snapshots:
 
   postcss-colormin@7.0.5(postcss@8.5.6):
     dependencies:
-      browserslist: 4.28.0
+      browserslist: 4.28.1
       caniuse-api: 3.0.0
       colord: 2.9.3
       postcss: 8.5.6
@@ -10344,7 +10352,7 @@ snapshots:
 
   postcss-convert-values@7.0.8(postcss@8.5.6):
     dependencies:
-      browserslist: 4.28.0
+      browserslist: 4.28.1
       postcss: 8.5.6
       postcss-value-parser: 4.2.0
 
@@ -10382,7 +10390,7 @@ snapshots:
 
   postcss-merge-rules@7.0.7(postcss@8.5.6):
     dependencies:
-      browserslist: 4.28.0
+      browserslist: 4.28.1
       caniuse-api: 3.0.0
       cssnano-utils: 5.0.1(postcss@8.5.6)
       postcss: 8.5.6
@@ -10402,7 +10410,7 @@ snapshots:
 
   postcss-minify-params@7.0.5(postcss@8.5.6):
     dependencies:
-      browserslist: 4.28.0
+      browserslist: 4.28.1
       cssnano-utils: 5.0.1(postcss@8.5.6)
       postcss: 8.5.6
       postcss-value-parser: 4.2.0
@@ -10449,7 +10457,7 @@ snapshots:
 
   postcss-normalize-unicode@7.0.5(postcss@8.5.6):
     dependencies:
-      browserslist: 4.28.0
+      browserslist: 4.28.1
       postcss: 8.5.6
       postcss-value-parser: 4.2.0
 
@@ -10471,7 +10479,7 @@ snapshots:
 
   postcss-reduce-initial@7.0.5(postcss@8.5.6):
     dependencies:
-      browserslist: 4.28.0
+      browserslist: 4.28.1
       caniuse-api: 3.0.0
       postcss: 8.5.6
 
