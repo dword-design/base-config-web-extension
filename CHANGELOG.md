@@ -1,3 +1,10 @@
+# [5.1.0](https://github.com/dword-design/base-config-web-extension/compare/v5.0.2...v5.1.0) (2025-12-12)
+
+
+### Features
+
+* depcheck special ([e2e914f](https://github.com/dword-design/base-config-web-extension/commit/e2e914f392f7220ae945839f17cc4b42b227d956))
+
 ## [5.0.2](https://github.com/dword-design/base-config-web-extension/compare/v5.0.1...v5.0.2) (2025-12-06)
 
 
