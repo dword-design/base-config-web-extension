@@ -41,6 +41,9 @@ importers:
       ini:
         specifier: ^6.0.0
         version: 6.0.0
+      jiti:
+        specifier: ^2.6.1
+        version: 2.6.1
       lodash-es:
         specifier: ^4.17.21
         version: 4.17.21
@@ -50,6 +53,9 @@ importers:
       read-pkg:
         specifier: ^10.0.0
         version: 10.0.0
+      require-package-name:
+        specifier: npm:@dword-design/require-package-name-fork@^0.0.1
+        version: '@dword-design/require-package-name-fork@0.0.1'
       stylelint:
         specifier: ^16.23.0
         version: 16.26.1(typescript@5.9.3)
@@ -57,6 +63,9 @@ importers:
         specifier: npm:@dword-design/wxt-fork@^0.0.2
         version: '@dword-design/wxt-fork@0.0.2(@types/node@24.10.1)(jiti@2.6.1)(rollup@4.53.3)(tsx@4.21.0)(yaml@2.8.2)'
     devDependencies:
+      '@dword-design/defu':
+        specifier: ^1.0.3
+        version: 1.0.3
       '@playwright/browser-chromium':
         specifier: ^1.54.1
         version: 1.57.0
@@ -397,6 +406,9 @@ packages:
 
   '@dword-design/plugin-name-to-package-name@0.1.2':
     resolution: {integrity: sha512-kATg/RzRkq/Yv0qNJziPqwAzKstBTzuXnowH4MvAMyqW6C7o5HlgZtik3GzO0kBKCBZBoRswBSvo9AHclOTxfg==}
+
+  '@dword-design/require-package-name-fork@0.0.1':
+    resolution: {integrity: sha512-3rgmNb4/3r7diYKM0SkQoRyxGQ3NU9eSRFWfX3m4qw8M+8uwxYEaQedMUsavAUWqlmOytHYJSReUh+G6hv2VYQ==}
 
   '@dword-design/stylelint-config@5.0.1':
     resolution: {integrity: sha512-kbp3j4evOtfcMay9gBKbDjsTPSH3BcPcujaRMy96zGKjApYQ/CRrS7BHIZg+2cF65k2EmEiOPxq+53Sh8DW3QQ==}
@@ -6385,6 +6397,8 @@ snapshots:
     dependencies:
       is-absolute: 1.0.0
 
+  '@dword-design/require-package-name-fork@0.0.1': {}
+
   '@dword-design/stylelint-config@5.0.1(postcss@8.5.6)(prettier@3.7.3)(stylelint@16.26.1(typescript@5.9.3))':
     dependencies:
       depcheck-package-name: 4.0.1
@@ -10336,7 +10350,7 @@ snapshots:
 
   postcss-colormin@7.0.5(postcss@8.5.6):
     dependencies:
-      browserslist: 4.28.0
+      browserslist: 4.28.1
       caniuse-api: 3.0.0
       colord: 2.9.3
       postcss: 8.5.6
@@ -10344,7 +10358,7 @@ snapshots:
 
   postcss-convert-values@7.0.8(postcss@8.5.6):
     dependencies:
-      browserslist: 4.28.0
+      browserslist: 4.28.1
       postcss: 8.5.6
       postcss-value-parser: 4.2.0
 
@@ -10382,7 +10396,7 @@ snapshots:
 
   postcss-merge-rules@7.0.7(postcss@8.5.6):
     dependencies:
-      browserslist: 4.28.0
+      browserslist: 4.28.1
       caniuse-api: 3.0.0
       cssnano-utils: 5.0.1(postcss@8.5.6)
       postcss: 8.5.6
@@ -10402,7 +10416,7 @@ snapshots:
 
   postcss-minify-params@7.0.5(postcss@8.5.6):
     dependencies:
-      browserslist: 4.28.0
+      browserslist: 4.28.1
       cssnano-utils: 5.0.1(postcss@8.5.6)
       postcss: 8.5.6
       postcss-value-parser: 4.2.0
@@ -10449,7 +10463,7 @@ snapshots:
 
   postcss-normalize-unicode@7.0.5(postcss@8.5.6):
     dependencies:
-      browserslist: 4.28.0
+      browserslist: 4.28.1
       postcss: 8.5.6
       postcss-value-parser: 4.2.0
 
@@ -10471,7 +10485,7 @@ snapshots:
 
   postcss-reduce-initial@7.0.5(postcss@8.5.6):
     dependencies:
-      browserslist: 4.28.0
+      browserslist: 4.28.1
       caniuse-api: 3.0.0
       postcss: 8.5.6
 

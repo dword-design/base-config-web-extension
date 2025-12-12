@@ -13,6 +13,7 @@ import { readPackageSync } from 'read-pkg';
 
 import build from './build';
 import dev from './dev';
+import getDepcheckSpecial from './get-depcheck-special';
 import lint from './lint';
 import prepublishOnly from './prepublish-only';
 import typecheck from './typecheck';
@@ -77,6 +78,7 @@ export default defineBaseConfig(function (
         '**/*.scss': depcheckParserSass,
         '**/*.vue': depcheck.parser.vue,
       },
+      specials: [getDepcheckSpecial({ cwd: this.cwd })],
     },
     ...(!packageConfig.private && {
       deployAssets: [{ label: 'Extension', path: 'extension.zip' }],
