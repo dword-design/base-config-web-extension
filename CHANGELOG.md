@@ -1,3 +1,10 @@
+## [5.1.1](https://github.com/dword-design/base-config-web-extension/compare/v5.1.0...v5.1.1) (2025-12-13)
+
+
+### Bug Fixes
+
+* upgrade wxt ([96a5a24](https://github.com/dword-design/base-config-web-extension/commit/96a5a246c3c17af003cd64c88fd707cf591809a3))
+
 # [5.1.0](https://github.com/dword-design/base-config-web-extension/compare/v5.0.2...v5.1.0) (2025-12-12)
 
 
