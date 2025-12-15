@@ -12,8 +12,8 @@ importers:
         specifier: ^16.0.0
         version: 16.1.0(@types/node@24.10.1)(@typescript-eslint/parser@8.48.0(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3))(@typescript-eslint/utils@8.48.0(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3))(@vue/compiler-core@3.5.25)(esbuild@0.27.0)
       '@dword-design/depcheck-parser-sass':
-        specifier: ^5.0.0
-        version: 5.0.0
+        specifier: ^6.0.0
+        version: 6.0.0
       '@dword-design/stylelint-config':
         specifier: ^5.0.1
         version: 5.0.1(postcss@8.5.6)(prettier@3.7.3)(stylelint@16.26.1(typescript@5.9.3))
@@ -363,6 +363,10 @@ packages:
   '@dword-design/depcheck-parser-sass@5.0.0':
     resolution: {integrity: sha512-WXVEIWxgS3G4kXhb1IgU9i+cJO7kkx6qAwibeqsnjzuFQaIfzQlHvbPyoU3DPc6SvRYREQdzNB1CFg9MC79abw==}
     engines: {node: '>=20'}
+
+  '@dword-design/depcheck-parser-sass@6.0.0':
+    resolution: {integrity: sha512-EKPIg7WXJ35iyeXjY6ftQ8o1zhYv0z5hBNLuf5mF6arrVKzAJ/aGfbSWpkV5CtxpoQtBe9yTm+Z3J4BGzYOoxA==}
+    engines: {node: '>=22'}
 
   '@dword-design/depcheck@0.0.12':
     resolution: {integrity: sha512-cTkvdU6mgc57B642oE3XSqwH2tBlt2KBjNIaf9lVvJp+NSBmIO2bSzmOJO4Iih7j6tpb3x6xESDuHZMva7Evfg==}
@@ -2333,6 +2337,10 @@ packages:
 
   enhanced-resolve@5.18.3:
     resolution: {integrity: sha512-d4lC8xfavMeBjzGr2vECC3fsGXziXZQyJxD868h2M/mBI3PwAuODxAkLkq5HYuvrPYcUtiLzsTo8U3PgX3Ocww==}
+    engines: {node: '>=10.13.0'}
+
+  enhanced-resolve@5.18.4:
+    resolution: {integrity: sha512-LgQMM4WXU3QI+SYgEc2liRgznaD5ojbmY3sb8LxyguVkIg5FxdpTkvk72te2R38/TGKxH634oLxXRGY6d7AP+Q==}
     engines: {node: '>=10.13.0'}
 
   entities@4.5.0:
@@ -6265,6 +6273,13 @@ snapshots:
       lodash-es: 4.17.21
       sass: 1.62.1
 
+  '@dword-design/depcheck-parser-sass@6.0.0':
+    dependencies:
+      enhanced-resolve: 5.18.4
+      get-package-name: 2.2.0
+      lodash-es: 4.17.21
+      sass: 1.62.1
+
   '@dword-design/depcheck@0.0.12':
     dependencies:
       '@babel/parser': 7.28.5
@@ -8331,6 +8346,11 @@ snapshots:
   encodeurl@2.0.0: {}
 
   enhanced-resolve@5.18.3:
+    dependencies:
+      graceful-fs: 4.2.11
+      tapable: 2.3.0
+
+  enhanced-resolve@5.18.4:
     dependencies:
       graceful-fs: 4.2.11
       tapable: 2.3.0
