@@ -1,3 +1,10 @@
+## [5.1.2](https://github.com/dword-design/base-config-web-extension/compare/v5.1.1...v5.1.2) (2025-12-16)
+
+
+### Bug Fixes
+
+* updates ([a4268d5](https://github.com/dword-design/base-config-web-extension/commit/a4268d502877bee25a8b538f746a89cf89fb3327))
+
 ## [5.1.1](https://github.com/dword-design/base-config-web-extension/compare/v5.1.0...v5.1.1) (2025-12-13)
 
 
