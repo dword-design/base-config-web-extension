@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "@dword-design/base": "^16.0.0",
-    "@dword-design/depcheck-parser-sass": "^5.0.0",
+    "@dword-design/depcheck-parser-sass": "^6.0.0",
     "@dword-design/stylelint-config": "^5.0.1",
     "@semantic-release/exec": "^7.1.0",
     "@wxt-dev/module-vue": "^1.0.2",
