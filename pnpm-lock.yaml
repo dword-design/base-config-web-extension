@@ -24,8 +24,8 @@ importers:
         specifier: ^1.0.2
         version: 1.0.3(@dword-design/wxt-fork@0.0.6(@types/node@24.10.1)(jiti@2.6.1)(rollup@4.53.4)(tsx@4.21.0)(yaml@2.8.2))(vite@7.3.0(@types/node@24.10.1)(jiti@2.6.1)(tsx@4.21.0)(yaml@2.8.2))(vue@3.5.25(typescript@5.9.3))
       depcheck-bin-name:
-        specifier: ^2.0.0
-        version: 2.0.0
+        specifier: ^3.0.0
+        version: 3.0.0
       depcheck-package-name:
         specifier: ^4.0.0
         version: 4.0.1
@@ -2210,9 +2210,9 @@ packages:
     resolution: {integrity: sha512-2NJozoOHQ4NuZuVIr5CWd0iiLVIRSDepakaovIN+9eIDHEhdCAEvSy2cuf1DCrPPQLvHmbqTHODlhHg8UCy4zw==}
     engines: {node: '>=16'}
 
-  depcheck-bin-name@2.0.0:
-    resolution: {integrity: sha512-X9MquOzrPPXoo4ZYqpO3K+DSDAyias3MLncwPh6eNYFqiafeHG8LlNmj0CODnsr21T3p7U0cdy8/wiyuZw+w0g==}
-    engines: {node: '>=20'}
+  depcheck-bin-name@3.0.0:
+    resolution: {integrity: sha512-UrwoRIstfwbwHOyJhWh9NTxov+ihl3F+oEMbdh2xeepdHQefvyQlMbL9yg+zZo9GNjYIFXbetpunb3p22na7Uw==}
+    engines: {node: '>=22'}
 
   depcheck-detector-bin-name@1.0.2:
     resolution: {integrity: sha512-NCJ8B0De9ILI+ClVwqJn3J6Dj1TKM9xmAWXTGu/ThQePMpt83KXt1abed+ndBEV5AbnwGmU7PVx1jpDH69oklg==}
@@ -8242,7 +8242,7 @@ snapshots:
 
   delay@6.0.0: {}
 
-  depcheck-bin-name@2.0.0:
+  depcheck-bin-name@3.0.0:
     dependencies:
       tagged-template-noop: 2.1.1
 
