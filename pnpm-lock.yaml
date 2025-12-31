@@ -27,8 +27,8 @@ importers:
         specifier: ^2.0.0
         version: 2.0.0
       depcheck-package-name:
-        specifier: ^4.0.0
-        version: 4.0.1
+        specifier: ^5.0.0
+        version: 5.0.0
       endent:
         specifier: npm:@dword-design/endent@^1.4.7
         version: '@dword-design/endent@1.4.7'
@@ -2229,6 +2229,10 @@ packages:
   depcheck-package-name@4.0.1:
     resolution: {integrity: sha512-Jt6XKYnjtC9AMP8+lD+I7J+Fr39e9Ll6O7xg6pzqhxFiCtUuDFPLrY89bMLtXBqFvzTE8h071K33CshYJmRuIg==}
     engines: {node: '>=20'}
+
+  depcheck-package-name@5.0.0:
+    resolution: {integrity: sha512-TmI3C6OMPmDoqNkv3pTUlSgfi2KoTpckBM98+p3bsCbES9OR7oHYCzgxm0QR6DdKSkrt/mFDNx8CKhCtbWRVag==}
+    engines: {node: '>=22'}
 
   depd@2.0.0:
     resolution: {integrity: sha512-g7nH6P6dyDioJogAAGprGpCtVImJhpPk/roCzdb3fIh61/s/nPsfR6onyMwkCAR/OlC3yBC0lESvUoQEAssIrw==}
@@ -8261,6 +8265,10 @@ snapshots:
   depcheck-detector-package-name@3.0.4: {}
 
   depcheck-package-name@4.0.1:
+    dependencies:
+      tagged-template-noop: 2.1.1
+
+  depcheck-package-name@5.0.0:
     dependencies:
       tagged-template-noop: 2.1.1
 
