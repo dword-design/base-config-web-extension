@@ -1,4 +1,4 @@
-import defu from '@dword-design/defu';
+import defaults from '@dword-design/defaults';
 import { expect, test } from '@playwright/test';
 import depcheck from 'depcheck';
 import endent from 'endent';
@@ -82,7 +82,7 @@ const tests: Record<string, TestConfig> = {
 };
 
 for (const [name, _testConfig] of Object.entries(tests)) {
-  const testConfig = defu(_testConfig, {
+  const testConfig = defaults(_testConfig, {
     dependency: 'foo',
     fail: false,
     files: {},
