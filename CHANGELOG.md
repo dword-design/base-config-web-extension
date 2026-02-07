@@ -1,3 +1,10 @@
+## [5.1.5](https://github.com/dword-design/base-config-web-extension/compare/v5.1.4...v5.1.5) (2026-02-07)
+
+
+### Bug Fixes
+
+* ignore web-ext.config.ts for eslint ([9fa4f78](https://github.com/dword-design/base-config-web-extension/commit/9fa4f786d7a3c528e2ee4e9532302f199520153f))
+
 ## [5.1.4](https://github.com/dword-design/base-config-web-extension/compare/v5.1.3...v5.1.4) (2026-01-11)
 
 
