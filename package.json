@@ -45,7 +45,7 @@
     "output-files": "^3.0.0",
     "read-pkg": "^10.0.0",
     "require-package-name": "npm:@dword-design/require-package-name-fork@^0.0.1",
-    "stylelint": "^16.26.1",
+    "stylelint": "^17.0.0",
     "wxt": "npm:@dword-design/wxt-fork@^0.0.6"
   },
   "devDependencies": {
