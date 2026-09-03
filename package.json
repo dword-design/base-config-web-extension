@@ -29,7 +29,7 @@
     "verify": "base verify"
   },
   "dependencies": {
-    "@dword-design/base": "^16.2.1",
+    "@dword-design/base": "^17.0.0",
     "@dword-design/depcheck-parser-sass": "^6.0.3",
     "@dword-design/stylelint-config": "^5.0.2",
     "@semantic-release/exec": "^7.1.0",
