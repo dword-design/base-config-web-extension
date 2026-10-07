@@ -39,7 +39,7 @@
     "endent": "npm:@dword-design/endent@^1.4.7",
     "execa": "^9.6.1",
     "fs-extra": "^11.3.3",
-    "ini": "^6.0.0",
+    "ini": "^7.0.0",
     "jiti": "^2.6.1",
     "lodash-es": "^4.17.22",
     "output-files": "^3.0.0",
