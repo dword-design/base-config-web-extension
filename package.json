@@ -37,7 +37,7 @@
     "depcheck-bin-name": "^3.0.0",
     "depcheck-package-name": "^5.0.0",
     "endent": "npm:@dword-design/endent@^1.4.7",
-    "execa": "^9.6.1",
+    "execa": "^10.0.0",
     "fs-extra": "^11.3.3",
     "ini": "^6.0.0",
     "jiti": "^2.6.1",
